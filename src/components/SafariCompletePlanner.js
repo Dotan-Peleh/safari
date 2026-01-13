@@ -428,6 +428,11 @@ const SafariCompletePlanner = () => {
                   ${route.pricePerPersonWithFlight.toLocaleString()}/אדם עם טיסה
                 </div>
               )}
+              {(key === 'proposal_3' || key === 'proposal_3_updated') && (
+                <div style={{ fontSize: '0.75em', opacity: 0.7, marginTop: '3px', fontStyle: 'italic', color: '#4CAF50' }}>
+                  ✓ כולל תנזניה + אוגנדה
+                </div>
+              )}
             </div>
           </button>
         ))}
@@ -580,12 +585,13 @@ const SafariCompletePlanner = () => {
           </svg>
 
           {/* Quick stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginTop: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: (selectedOption === 'proposal_3' || selectedOption === 'proposal_3_updated') ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)', gap: '10px', marginTop: '20px' }}>
             {[
               { icon: '📅', label: 'ימים', value: currentRoute.days },
               { icon: '💰', label: 'סה"כ', value: `$${currentRoute.price.toLocaleString()}` },
               { icon: '👤', label: 'לאדם', value: `$${currentRoute.pricePerPerson.toLocaleString()}` },
-              { icon: '🏨', label: 'לילות', value: currentRoute.days - 1 }
+              { icon: '🏨', label: 'לילות', value: currentRoute.days - 1 },
+              ...((selectedOption === 'proposal_3' || selectedOption === 'proposal_3_updated') ? [{ icon: '🗺️', label: 'מדינות', value: '2 (תנזניה + אוגנדה)' }] : [])
             ].map((stat, idx) => (
               <div key={idx} style={{ background: 'rgba(255,255,255,0.1)', padding: '12px', borderRadius: '10px', textAlign: 'center' }}>
                 <div style={{ fontSize: '1.5em' }}>{stat.icon}</div>
@@ -864,33 +870,36 @@ const SafariCompletePlanner = () => {
                   <thead>
                     <tr style={{ background: 'rgba(255,255,255,0.1)' }}>
                       <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}>קריטריון</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold' }}>⭐ מומלץ</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold' }}>חלופי</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold' }}>תנזניה</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#00BCD4', fontWeight: 'bold' }}>אוגנדה</th>
+                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold' }}>הצעה 4 - גרסה 1</th>
+                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold' }}>הצעה 4 - גרסה 2</th>
+                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold' }}>הצעה 3</th>
+                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#E91E63', fontWeight: 'bold' }}>הצעה 3 מעודכנת</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[
-                      { label: '📅 ימים', r: '14', a: '14', t: '7', u: '7' },
-                      { label: '💰 מחיר כולל', r: '$29,220', a: '$32,000', t: '$8,304', u: '$9,150' },
-                      { label: '👤 מחיר לאדם', r: '$9,740', a: '$10,667', t: '$2,768', u: '$3,050' },
-                      { label: '🦍 גורילות', r: '✅', a: '✅', t: '❌', u: '✅' },
-                      { label: '🐒 שימפנזים', r: '✅', a: '✅', t: '❌', u: '✅' },
-                      { label: '🌊 חציית המארה', r: '✅', a: '❌', t: '✅', u: '❌' },
-                      { label: '🦏 קרנף שחור', r: '✅', a: '✅', t: '✅', u: '❌' },
-                      { label: '🏖️ זנזיבר', r: '❌', a: '✅', t: '❌', u: '❌' },
-                      { label: '🦁 אריות מטפסים', r: '❌', a: '✅', t: '❌', u: '✅' },
-                      { label: '🐘 טרנגירה', r: '✅', a: '❌', t: '✅', u: '❌' },
-                      { label: '🚤 שייט קזינגה', r: '❌', a: '❌', t: '❌', u: '✅' },
-                      { label: '🦁 Big 5 מלא', r: '✅', a: '✅', t: '✅', u: '❌' }
+                      { label: '📅 ימים', v1: '14', v2: '14', p3: '14', p3u: '15' },
+                      { label: '💰 מחיר לאדם', v1: '$12,640', v2: '$10,667', p3: '$5,818', p3u: '$6,217' },
+                      { label: '✈️ עם טיסה', v1: '$13,600', v2: '-', p3: '-', p3u: '-' },
+                      { label: '🗺️ מדינות', v1: '2 (תנזניה + אוגנדה)', v2: '2 (תנזניה + אוגנדה)', p3: '2 (תנזניה + אוגנדה)', p3u: '2 (תנזניה + אוגנדה)' },
+                      { label: '🦍 גורילות', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                      { label: '🐒 שימפנזים', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                      { label: '🌊 חציית המארה', v1: '✅', v2: '❌', p3: '✅', p3u: '✅' },
+                      { label: '🦏 קרנף שחור', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                      { label: '🏖️ זנזיבר', v1: '❌', v2: '✅', p3: '❌', p3u: '❌' },
+                      { label: '🦁 אריות מטפסים', v1: '❌', v2: '✅', p3: '✅', p3u: '✅' },
+                      { label: '🐘 טרנגירה', v1: '✅', v2: '❌', p3: '✅', p3u: '✅' },
+                      { label: '🚤 שייט קזינגה', v1: '❌', v2: '✅', p3: '✅', p3u: '✅' },
+                      { label: '🦁 Big 5 מלא', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                      { label: '✈️ טיסה פנימית', v1: '✅', v2: '❌', p3: '❌', p3u: '❌' },
+                      { label: '📅 יום נוסף סרנגטי', v1: '❌', v2: '❌', p3: '❌', p3u: '✅' }
                     ].map((row, idx) => (
                       <tr key={idx} style={{ background: idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
                         <td style={{ padding: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontWeight: '500' }}>{row.label}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.r}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.a}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.t}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.u}</td>
+                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.v1}</td>
+                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.v2}</td>
+                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.p3}</td>
+                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.p3u}</td>
                       </tr>
                     ))}
                   </tbody>
