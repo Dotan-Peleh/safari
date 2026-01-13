@@ -225,8 +225,25 @@ const SafariCompletePlanner = () => {
         { day: 12, location: "tarangire", nights: 2, highlight: "🐘" },
         { day: 14, location: "arusha", nights: 0, highlight: false }
       ],
-      pros: ["חוויה מלאה של שתי המדינות", "גורילות + שימפנזים + Big 5", "עונה מושלמת לנדידה"],
-      cons: ["14 ימים - דורש זמן", "מחיר גבוה יחסית"]
+      pros: [
+        "חוויה מלאה של שתי המדינות - אוגנדה ותנזניה",
+        "גורילות + שימפנזים + Big 5 מלא",
+        "חציית נהר המארה - הנדידה הגדולה",
+        "קרנף שחור בנגורונגורו",
+        "טרנגירה - 5,000+ פילים",
+        "עונה מושלמת לנדידה (אוגוסט)"
+      ],
+      cons: [
+        "14 ימים - דורש זמן רב",
+        "מחיר גבוה יחסית ($9,740 לאדם)",
+        "ללא זנזיבר (יש בחלופי)",
+        "ללא אריות מטפסי עצים (יש בחלופי)"
+      ],
+      uniqueFeatures: [
+        "🌊 חציית נהר המארה + גורילות + שימפנזים - השילוב היחיד",
+        "🦏 קרנף שחור + טרנגירה - Big 5 מלא",
+        "🗺️ שתי המדינות - חוויה מקיפה ביותר"
+      ]
     },
     alternative: {
       name: "מסלול חלופי",
@@ -245,8 +262,24 @@ const SafariCompletePlanner = () => {
         { day: 10, location: "ngorongoro", nights: 1, highlight: "🦏" },
         { day: 11, location: "zanzibar", nights: 3, highlight: "🏖️" }
       ],
-      pros: ["קווין אליזבת - שייט + אריות מטפסים", "3 לילות בזנזיבר להתאוששות", "פחות נסיעות ארוכות"],
-      cons: ["מפספסים את צפון סרנגטי (חציית המארה)", "מפספסים את טרנגירה"]
+      pros: [
+        "קווין אליזבת - שייט קזינגה + אריות מטפסי עצים",
+        "3 לילות בזנזיבר - התאוששות וחופים",
+        "פחות נסיעות ארוכות - יותר זמן בכל מקום",
+        "גורילות + שימפנזים + Big 5",
+        "חוויה מגוונת - ספארי + חופים"
+      ],
+      cons: [
+        "מפספסים את צפון סרנגטי (חציית המארה)",
+        "מפספסים את טרנגירה - 5,000+ פילים",
+        "מחיר גבוה ביותר ($10,667 לאדם)",
+        "14 ימים - דורש זמן"
+      ],
+      uniqueFeatures: [
+        "🏖️ 3 לילות בזנזיבר - חופים והתאוששות",
+        "🦁 אריות מטפסי עצים + שייט קזינגה",
+        "🌴 חוויה ייחודית של זנזיבר"
+      ]
     },
     tanzania_only: {
       name: "תנזניה בלבד",
@@ -264,8 +297,61 @@ const SafariCompletePlanner = () => {
         { day: 6, location: "ngorongoro", nights: 1, highlight: "🦏" },
         { day: 7, location: "arusha", nights: 0, highlight: false }
       ],
-      pros: ["מחיר אטרקטיבי", "7 ימים בלבד", "כל ה-Big 5"],
-      cons: ["ללא גורילות ושימפנזים", "קצת ממהרים"]
+      pros: [
+        "מחיר הכי נמוך ($2,768 לאדם)",
+        "7 ימים בלבד - אידיאלי לזמן מוגבל",
+        "כל ה-Big 5 - אריות, נמרים, פילים, באפלו, קרנף",
+        "חציית נהר המארה - הנדידה הגדולה",
+        "קרנף שחור בנגורונגורו",
+        "טרנגירה - 5,000+ פילים"
+      ],
+      cons: [
+        "ללא גורילות ושימפנזים - חסר חווית פרימטים",
+        "קצת ממהרים - פחות זמן בכל מקום",
+        "ללא אוגנדה - רק תנזניה"
+      ],
+      uniqueFeatures: [
+        "💰 המחיר הכי נמוך - תקציבי",
+        "🌊 חציית נהר המארה - הנדידה הגדולה",
+        "🦏 קרנף שחור + 🐘 טרנגירה - Big 5 מלא"
+      ]
+    },
+    uganda_only: {
+      name: "אוגנדה בלבד",
+      subtitle: "הצעה 3 - פרימטים מלא",
+      days: 7,
+      price: 9150,
+      pricePerPerson: 3050,
+      color: "#00BCD4",
+      description: "מסלול ממוקד פרימטים - שימפנזים, גורילות וקווין אליזבת",
+      itinerary: [
+        { day: 1, location: "entebbe", nights: 1, highlight: false },
+        { day: 2, location: "kibale", nights: 1, highlight: "🐒" },
+        { day: 3, location: "queen_elizabeth", nights: 2, highlight: "🦁" },
+        { day: 5, location: "bwindi", nights: 2, highlight: "🦍" },
+        { day: 7, location: "entebbe", nights: 0, highlight: false }
+      ],
+      pros: [
+        "גורילות + שימפנזים - חווית פרימטים מלאה",
+        "קווין אליזבת - שייט קזינגה + אריות מטפסי עצים",
+        "7 ימים בלבד - אידיאלי לזמן מוגבל",
+        "מחיר סביר יחסית ($3,050 לאדם)",
+        "פחות נסיעות - יותר זמן בכל מקום",
+        "אוגנדה ידידותית יותר לתיירים"
+      ],
+      cons: [
+        "ללא הנדידה הגדולה (תנזניה)",
+        "ללא חציית נהר המארה",
+        "ללא קרנף שחור (רק בתנזניה)",
+        "ללא Big 5 מלא (חסר קרנף)",
+        "פחות מגוון חיות בר מאשר תנזניה"
+      ],
+      uniqueFeatures: [
+        "🦍 מעקב גורילות - חוויה ייחודית לאוגנדה",
+        "🐒 שימפנזים בקיבאלה - הריכוז הגבוה באפריקה",
+        "🚤 שייט קזינגה - היפופוטמים ותנינים",
+        "🦁 אריות מטפסי עצים - תופעה נדירה"
+      ]
     }
   };
 
@@ -744,32 +830,115 @@ const SafariCompletePlanner = () => {
                       <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold' }}>⭐ מומלץ</th>
                       <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold' }}>חלופי</th>
                       <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold' }}>תנזניה</th>
+                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#00BCD4', fontWeight: 'bold' }}>אוגנדה</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[
-                      { label: '📅 ימים', r: '14', a: '14', t: '7' },
-                      { label: '💰 מחיר כולל', r: '$29,220', a: '$32,000', t: '$8,304' },
-                      { label: '👤 מחיר לאדם', r: '$9,740', a: '$10,667', t: '$2,768' },
-                      { label: '🦍 גורילות', r: '✅', a: '✅', t: '❌' },
-                      { label: '🐒 שימפנזים', r: '✅', a: '✅', t: '❌' },
-                      { label: '🌊 חציית המארה', r: '✅', a: '❌', t: '✅' },
-                      { label: '🦏 קרנף שחור', r: '✅', a: '✅', t: '✅' },
-                      { label: '🏖️ זנזיבר', r: '❌', a: '✅', t: '❌' },
-                      { label: '🦁 אריות מטפסים', r: '❌', a: '✅', t: '❌' },
-                      { label: '🐘 טרנגירה', r: '✅', a: '❌', t: '✅' }
+                      { label: '📅 ימים', r: '14', a: '14', t: '7', u: '7' },
+                      { label: '💰 מחיר כולל', r: '$29,220', a: '$32,000', t: '$8,304', u: '$9,150' },
+                      { label: '👤 מחיר לאדם', r: '$9,740', a: '$10,667', t: '$2,768', u: '$3,050' },
+                      { label: '🦍 גורילות', r: '✅', a: '✅', t: '❌', u: '✅' },
+                      { label: '🐒 שימפנזים', r: '✅', a: '✅', t: '❌', u: '✅' },
+                      { label: '🌊 חציית המארה', r: '✅', a: '❌', t: '✅', u: '❌' },
+                      { label: '🦏 קרנף שחור', r: '✅', a: '✅', t: '✅', u: '❌' },
+                      { label: '🏖️ זנזיבר', r: '❌', a: '✅', t: '❌', u: '❌' },
+                      { label: '🦁 אריות מטפסים', r: '❌', a: '✅', t: '❌', u: '✅' },
+                      { label: '🐘 טרנגירה', r: '✅', a: '❌', t: '✅', u: '❌' },
+                      { label: '🚤 שייט קזינגה', r: '❌', a: '❌', t: '❌', u: '✅' },
+                      { label: '🦁 Big 5 מלא', r: '✅', a: '✅', t: '✅', u: '❌' }
                     ].map((row, idx) => (
                       <tr key={idx} style={{ background: idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
                         <td style={{ padding: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontWeight: '500' }}>{row.label}</td>
                         <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.r}</td>
                         <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.a}</td>
                         <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.t}</td>
+                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.u}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
 
+              {/* Detailed Comparison Section */}
+              <div style={{ marginTop: '25px', background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '15px' }}>
+                <h4 style={{ color: '#ffd700', marginBottom: '20px', fontSize: '1.4em' }}>🔍 השוואה מפורטת - מה יש בכל הצעה?</h4>
+                
+                {Object.entries(routes).map(([key, route]) => (
+                  <div key={key} style={{ marginBottom: '25px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px', border: `2px solid ${route.color}40` }}>
+                    <h5 style={{ color: route.color, marginBottom: '15px', fontSize: '1.2em', fontWeight: 'bold' }}>
+                      {key === 'recommended' && '⭐ '}{route.name} ({route.subtitle})
+                    </h5>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ background: 'rgba(72,187,120,0.1)', padding: '15px', borderRadius: '10px' }}>
+                        <h6 style={{ margin: '0 0 10px', color: '#48bb78', fontSize: '1em' }}>✅ מה יש רק כאן:</h6>
+                        <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
+                          {key === 'recommended' && [
+                            <li key="1">🌊 חציית נהר המארה + גורילות + שימפנזים</li>,
+                            <li key="2">🦏 קרנף שחור + טרנגירה (Big 5 מלא)</li>,
+                            <li key="3">🗺️ שתי המדינות - חוויה מלאה</li>
+                          ]}
+                          {key === 'alternative' && [
+                            <li key="1">🏖️ 3 לילות בזנזיבר - התאוששות</li>,
+                            <li key="2">🦁 אריות מטפסי עצים + שייט קזינגה</li>,
+                            <li key="3">🌴 חוויה ייחודית של זנזיבר</li>
+                          ]}
+                          {key === 'tanzania_only' && [
+                            <li key="1">💰 המחיר הכי נמוך ($2,768 לאדם)</li>,
+                            <li key="2">🌊 חציית נהר המארה - הנדידה הגדולה</li>,
+                            <li key="3">🦏 קרנף שחור בנגורונגורו</li>,
+                            <li key="4">🐘 טרנגירה - 5,000+ פילים</li>
+                          ]}
+                          {key === 'uganda_only' && [
+                            <li key="1">🦍 גורילות + שימפנזים - חווית פרימטים מלאה</li>,
+                            <li key="2">🚤 שייט קזינגה - היפופוטמים ותנינים</li>,
+                            <li key="3">🦁 אריות מטפסי עצים - תופעה נדירה</li>,
+                            <li key="4">🌿 יערות גשם עתיקים - בווינדי וקיבאלה</li>
+                          ]}
+                        </ul>
+                      </div>
+                      <div style={{ background: 'rgba(237,137,54,0.1)', padding: '15px', borderRadius: '10px' }}>
+                        <h6 style={{ margin: '0 0 10px', color: '#ed8936', fontSize: '1em' }}>❌ מה חסר כאן:</h6>
+                        <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
+                          {key === 'recommended' && [
+                            <li key="1">🏖️ זנזיבר (יש בחלופי)</li>,
+                            <li key="2">🦁 אריות מטפסי עצים (יש בחלופי)</li>
+                          ]}
+                          {key === 'alternative' && [
+                            <li key="1">🌊 חציית נהר המארה (יש במומלץ ותנזניה)</li>,
+                            <li key="2">🐘 טרנגירה (יש במומלץ ותנזניה)</li>
+                          ]}
+                          {key === 'tanzania_only' && [
+                            <li key="1">🦍 גורילות (יש במומלץ, חלופי, אוגנדה)</li>,
+                            <li key="2">🐒 שימפנזים (יש במומלץ, חלופי, אוגנדה)</li>,
+                            <li key="3">🚤 שייט קזינגה (יש באוגנדה)</li>
+                          ]}
+                          {key === 'uganda_only' && [
+                            <li key="1">🌊 חציית נהר המארה (יש במומלץ ותנזניה)</li>,
+                            <li key="2">🦏 קרנף שחור (יש במומלץ, חלופי, תנזניה)</li>,
+                            <li key="3">🐘 טרנגירה - 5,000+ פילים (יש במומלץ ותנזניה)</li>,
+                            <li key="4">🦁 Big 5 מלא (חסר קרנף)</li>
+                          ]}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {route.uniqueFeatures && (
+                      <div style={{ background: 'rgba(159,122,234,0.1)', padding: '15px', borderRadius: '10px', marginTop: '15px' }}>
+                        <h6 style={{ margin: '0 0 10px', color: '#9f7aea', fontSize: '1em' }}>⭐ תכונות ייחודיות:</h6>
+                        <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
+                          {route.uniqueFeatures.map((feature, i) => (
+                            <li key={i} style={{ marginBottom: '5px' }}>{feature}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Current Route Details */}
               <div style={{ marginTop: '25px', background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '15px' }}>
                 <h4 style={{ color: currentRoute.color, marginBottom: '10px', fontSize: '1.3em' }}>{currentRoute.name}</h4>
                 <p style={{ opacity: 0.9, marginBottom: '20px', fontSize: '1em' }}>{currentRoute.description}</p>
