@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך ספארי אולטימטיבי - אוגנדה ותנזניה</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            direction: rtl;
+            color: white;
+        }
+        #root { min-height: 100vh; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const SafariCompletePlanner = () => {
+          const [selectedOption, setSelectedOption] = useState('recommended');
+          const [selectedLocation, setSelectedLocation] = useState(null);
+          const [activeTab, setActiveTab] = useState('map');
+
+          const locations = {
+            serengeti_north: {
+              name: "צפון סרנגטי",
+              nameEn: "Northern Serengeti",
+              country: "tanzania",
+              image: "public/images/serengeti-migration.jpg",
+              coords: { x: 280, y: 280 },
+              description: "אזור נהר המארה - המקום המפורסם לחציית הנדידה הגדולה",
+              highlights: ["🦁 צפיפות טורפים גבוהה", "🌊 חציית נהר המארה", "🎈 טיסת בלון ($500)"],
+              bestTime: "יולי-ספטמבר",
+              wildlife: ["אריות", "נמרים", "צ'יטות", "תנינים", "היפופוטמים"],
+              tips: [
+                "🌅 הגיעו לנקודות החצייה עד 6:30 בבוקר - זה הזמן הטוב ביותר",
+                "📸 עדשה 200-400mm חיונית לצילום החציות",
+                "⏰ העדרים עשויים להמתין ימים על הגדה לפני שחוצים",
+                "🚙 הקפידו שהמדריך יודע את נקודות החצייה הפופולריות",
+                "💡 צפון סרנגטי פחות צפוף מהמרכז - שווה להשקיע בנסיעה"
+              ],
+              stayDuration: "2-3 לילות",
+              difficulty: "קל"
+            },
+            serengeti_central: {
+              name: "מרכז סרנגטי (סרונרה)",
+              nameEn: "Central Serengeti (Seronera)",
+              country: "tanzania",
+              image: "public/images/hero-safari.jpg",
+              coords: { x: 290, y: 340 },
+              description: "לב הסרנגטי - ריכוז חיות בר גבוה כל השנה",
+              highlights: ["🦁 ריכוז האריות הגבוה ביותר", "🐆 נמרים על עצים", "🦛 היפופוטמים בנהר סרונרה"],
+              bestTime: "כל השנה",
+              wildlife: ["אריות", "נמרים", "פילים", "ג'ירפות", "זברות"],
+              tips: [
+                "🌅 יציאה ב-6:00 בבוקר לספארי - האריות פעילים",
+                "🪨 חפשו את ה-Kopjes (סלעי גרניט) - מחבוא אהוב של נמרים",
+                "🚗 האזור יכול להיות צפוף - בקשו מהמדריך מסלולים פחות תיירותיים",
+                "🍽️ נקודת פיקניק ליד Hippo Pool מומלצת",
+                "🦅 למעלה מ-500 מיני ציפורים באזור"
+              ],
+              stayDuration: "2 לילות",
+              difficulty: "קל"
+            },
+            ngorongoro: {
+              name: "מכתש נגורונגורו",
+              nameEn: "Ngorongoro Crater",
+              country: "tanzania",
+              image: "public/images/ngorongoro-crater.jpg",
+              coords: { x: 340, y: 380 },
+              description: "המכתש הגדול בעולם - 25,000 יונקים בשטח סגור",
+              highlights: ["🦏 קרנף שחור (נדיר!)", "🦁 צפיפות טורפים הגבוהה באפריקה", "🦩 פלמינגו באגם מגדי"],
+              bestTime: "יוני-אוקטובר",
+              wildlife: ["קרנף שחור", "אריות", "נמרים", "פילים", "באפלו"],
+              tips: [
+                "⏰ השער נפתח ב-6:00 - היו ראשונים! רכבים מוגבלים",
+                "🦏 הקרנפים בדרום-מזרח המכתש - ליד אגם מגדי",
+                "🧥 הביאו שכבות - קר בבוקר על השפה (2,300 מטר)",
+                "⛔ אסור לרדת מהרכב (חוץ מאזורי פיקניק מסומנים)",
+                "💰 עמלת כניסה גבוהה ($295/רכב) - כדאי לשלב עם לילה על השפה",
+                "📷 אור הבוקר המוקדם מושלם לצילום עם הערפל"
+              ],
+              stayDuration: "1-2 לילות",
+              difficulty: "קל"
+            },
+            tarangire: {
+              name: "טרנגירה",
+              nameEn: "Tarangire",
+              country: "tanzania",
+              image: "public/images/tarangire-elephants.jpg",
+              coords: { x: 370, y: 430 },
+              description: "עצי באובב עתיקים ועדרי הפילים הגדולים בתנזניה",
+              highlights: ["🐘 5,000+ פילים", "🌳 עצי באובב בני 1,000 שנה", "🦁 אריות מטפסי עצים"],
+              bestTime: "יוני-אוקטובר",
+              wildlife: ["פילים", "אריות", "נמרים", "פיתונים", "צבועים"],
+              tips: [
+                "🐘 הפילים מתרכזים ליד נהר טרנגירה בעונה היבשה",
+                "🌅 שקיעות מדהימות עם צלליות באובב - מקום מושלם לצילום",
+                "🌙 זה אחד הפארקים היחידים שמציעים ספארי לילה ($100/אדם)",
+                "🦅 550+ מיני ציפורים - גן עדן לצפרים",
+                "🚗 פחות תיירותי מסרנגטי - חוויה אינטימית יותר",
+                "⏰ הגיעו ב-10:00-11:00 - תוכלו לראות ערב ובוקר"
+              ],
+              stayDuration: "1-2 לילות",
+              difficulty: "קל"
+            },
+            arusha: {
+              name: "ארושה",
+              nameEn: "Arusha",
+              country: "tanzania",
+              image: "public/images/hero-safari.jpg",
+              coords: { x: 400, y: 400 },
+              description: "שער הספארי לצפון תנזניה - עיר תוססת למרגלות הר מרו",
+              highlights: ["🏔️ נוף להר מרו והר קילימנג'רו", "🛍️ שוק המאסאי", "☕ סיור קפה"],
+              bestTime: "כל השנה",
+              wildlife: [],
+              tips: [
+                "💵 החליפו דולרים לשילינג בעיר - שער טוב יותר",
+                "🏧 KCB ATM ללא עמלה - משכו את כל המזומן שתצטרכו",
+                "📅 שטרות דולר חייבים להיות מ-2013 ומעלה!",
+                "🛒 שוק Maasai Market ביום רביעי ושבת",
+                "🏨 Mount Meru Hotel מומלץ ללינה לפני/אחרי הספארי"
+              ],
+              stayDuration: "1 לילה",
+              difficulty: "קל"
+            },
+            bwindi: {
+              name: "יער בווינדי",
+              nameEn: "Bwindi Impenetrable Forest",
+              country: "uganda",
+              image: "public/images/bwindi-gorilla.jpg",
+              coords: { x: 220, y: 220 },
+              description: "בית לחצי מאוכלוסיית הגורילות ההרריות בעולם",
+              highlights: ["🦍 מעקב גורילות!", "🌿 יער גשם עתיק", "👥 26 משפחות גורילות מורגלות"],
+              bestTime: "יוני-אוגוסט, דצמבר-פברואר",
+              wildlife: ["גורילות הרים", "שימפנזים", "קופי קולובוס", "פילי יער"],
+              tips: [
+                "🦍 הזמינו אשרה 3 חודשים מראש ($800/אדם) - נגמר מהר!",
+                "👟 נעלי הליכה עמידות למים חובה - השביל בוצי ותלול",
+                "🧤 כפפות גינון להגנה מסרפדים",
+                "💪 רמת כושר בינונית-גבוהה נדרשת (2-6 שעות הליכה)",
+                "📏 שמרו מרחק 7 מטר מהגורילות",
+                "📷 ללא פלאש! משבש את הגורילות",
+                "🤧 אל תלכו אם יש לכם שפעת - הגורילות רגישות למחלות אנוש",
+                "💰 שכרו סבל ($20) - תומכים בציידים לשעבר שהפכו לשומרי טבע"
+              ],
+              stayDuration: "2 לילות",
+              difficulty: "מאתגר"
+            },
+            kibale: {
+              name: "יער קיבאלה",
+              nameEn: "Kibale Forest",
+              country: "uganda",
+              image: "public/images/kibale-chimp.jpg",
+              coords: { x: 240, y: 170 },
+              description: "בירת הפרימטים של אפריקה - 13 מיני קופים",
+              highlights: ["🐒 1,500 שימפנזים", "🌳 יער גשם טרופי", "🦜 375 מיני ציפורים"],
+              bestTime: "יוני-ספטמבר, דצמבר-פברואר",
+              wildlife: ["שימפנזים", "קופי קולובוס", "קופים כחולים", "מנגבי אפור"],
+              tips: [
+                "🐒 מעקב שימפנזים ב-8:00, 11:00 ו-14:00 - בוקר הכי טוב",
+                "📊 90%+ סיכוי לראות שימפנזים - ההצלחה הגבוהה ביותר באפריקה",
+                "👕 לבשו צבעים ניטרליים (ירוק, חאקי, חום) - לא שחור או כחול",
+                "🦟 כחול ושחור מושכים חרקים!",
+                "⏱️ שעה אחת עם השימפנזים (מספיק, הם זזים הרבה)",
+                "👶 גיל מינימום: 12 שנים (בניגוד ל-15 לגורילות)",
+                "🔊 אל תחקו את הקולות שלהם - יכול לעורר תוקפנות",
+                "🥾 השביל קל יחסית - פחות תובעני מגורילות"
+              ],
+              stayDuration: "1-2 לילות",
+              difficulty: "בינוני"
+            },
+            entebbe: {
+              name: "אנטבה",
+              nameEn: "Entebbe",
+              country: "uganda",
+              image: "public/images/hero-safari.jpg",
+              coords: { x: 320, y: 180 },
+              description: "שער הכניסה לאוגנדה על חופי אגם ויקטוריה",
+              highlights: ["🛬 נמל תעופה בינלאומי", "🌴 גני הבוטני", "🐒 מקלט השימפנזים נגמבה"],
+              bestTime: "כל השנה",
+              wildlife: [],
+              tips: [
+                "🏨 The Boma Hotel מומלץ - קרוב לשדה התעופה",
+                "🐒 אי נגמבה - מקלט לשימפנזים יתומים (חצי יום)",
+                "🌿 הגנים הבוטניים שווים ביקור אם יש זמן",
+                "💱 החליפו דולרים בשדה התעופה - שער סביר",
+                "📱 קנו כרטיס SIM מקומי (MTN או Airtel)"
+              ],
+              stayDuration: "1 לילה",
+              difficulty: "קל"
+            },
+            queen_elizabeth: {
+              name: "פארק קווין אליזבת",
+              nameEn: "Queen Elizabeth NP",
+              country: "uganda",
+              image: "public/images/hero-safari.jpg",
+              coords: { x: 230, y: 195 },
+              description: "שייט בתעלת קזינגה ואריות מטפסי עצים באישאשה",
+              highlights: ["🦁 אריות מטפסי עצים", "🚤 שייט קזינגה", "🦛 היפופוטמים"],
+              bestTime: "יוני-אוגוסט, דצמבר-פברואר",
+              wildlife: ["אריות", "נמרים", "פילים", "היפופוטמים", "תנינים"],
+              tips: [
+                "🚤 שייט קזינגה ב-15:00 - הכי הרבה חיות בר",
+                "🦁 אריות מטפסי עצים באזור אישאשה (דרום הפארק)",
+                "🐒 שימפנזים בקיאמבורה גורג' - חלופה לקיבאלה",
+                "🦅 600+ מיני ציפורים - אחד המגוונים ביותר באפריקה",
+                "🌅 תצפית על פני Crater Lakes מדהימה"
+              ],
+              stayDuration: "1-2 לילות",
+              difficulty: "קל"
+            }
+          };
+
+          const routes = {
+            recommended: {
+              name: "המסלול המומלץ",
+              subtitle: "הצעה 4 - משולב בינוני",
+              days: 14,
+              price: 29220,
+              pricePerPerson: 9740,
+              color: "#4CAF50",
+              description: "השילוב המושלם: גורילות + שימפנזים + הנדידה הגדולה",
+              itinerary: [
+                { day: 1, location: "entebbe", nights: 1, highlight: false },
+                { day: 2, location: "kibale", nights: 2, highlight: "🐒" },
+                { day: 4, location: "bwindi", nights: 2, highlight: "🦍" },
+                { day: 6, location: "serengeti_north", nights: 2, highlight: "🌊", flight: true },
+                { day: 8, location: "serengeti_central", nights: 2, highlight: false },
+                { day: 10, location: "ngorongoro", nights: 2, highlight: "🦏" },
+                { day: 12, location: "tarangire", nights: 2, highlight: "🐘" },
+                { day: 14, location: "arusha", nights: 0, highlight: false }
+              ],
+              pros: ["חוויה מלאה של שתי המדינות", "גורילות + שימפנזים + Big 5", "עונה מושלמת לנדידה"],
+              cons: ["14 ימים - דורש זמן", "מחיר גבוה יחסית"]
+            },
+            alternative: {
+              name: "מסלול חלופי",
+              subtitle: "דגש על אוגנדה + זנזיבר",
+              days: 14,
+              price: 32000,
+              pricePerPerson: 10667,
+              color: "#9C27B0",
+              description: "יותר זמן באוגנדה + סיום רגוע בזנזיבר",
+              itinerary: [
+                { day: 1, location: "entebbe", nights: 1, highlight: false },
+                { day: 2, location: "kibale", nights: 2, highlight: "🐒" },
+                { day: 4, location: "queen_elizabeth", nights: 2, highlight: "🦁" },
+                { day: 6, location: "bwindi", nights: 2, highlight: "🦍" },
+                { day: 8, location: "serengeti_central", nights: 2, highlight: false, flight: true },
+                { day: 10, location: "ngorongoro", nights: 1, highlight: "🦏" },
+                { day: 11, location: "zanzibar", nights: 3, highlight: "🏖️" }
+              ],
+              pros: ["קווין אליזבת - שייט + אריות מטפסים", "3 לילות בזנזיבר להתאוששות", "פחות נסיעות ארוכות"],
+              cons: ["מפספסים את צפון סרנגטי (חציית המארה)", "מפספסים את טרנגירה"]
+            },
+            tanzania_only: {
+              name: "תנזניה בלבד",
+              subtitle: "הצעה 1 - תקציבי",
+              days: 7,
+              price: 8304,
+              pricePerPerson: 2768,
+              color: "#FF9800",
+              description: "מסלול קלאסי של צפון תנזניה",
+              itinerary: [
+                { day: 1, location: "arusha", nights: 1, highlight: false },
+                { day: 2, location: "tarangire", nights: 1, highlight: "🐘" },
+                { day: 3, location: "serengeti_north", nights: 2, highlight: "🌊" },
+                { day: 5, location: "serengeti_central", nights: 1, highlight: false },
+                { day: 6, location: "ngorongoro", nights: 1, highlight: "🦏" },
+                { day: 7, location: "arusha", nights: 0, highlight: false }
+              ],
+              pros: ["מחיר אטרקטיבי", "7 ימים בלבד", "כל ה-Big 5"],
+              cons: ["ללא גורילות ושימפנזים", "קצת ממהרים"]
+            }
+          };
+
+          const currentRoute = routes[selectedOption];
+          const currentLocation = selectedLocation ? locations[selectedLocation] : null;
+
+          return React.createElement('div', {
+            style: {
+              fontFamily: 'Arial, sans-serif',
+              background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 100%)',
+              minHeight: '100vh',
+              direction: 'rtl',
+              color: 'white'
+            }
+          }, [
+            // Header
+            React.createElement('div', {
+              key: 'header',
+              style: {
+                background: 'linear-gradient(135deg, #e65100, #ff8f00)',
+                padding: '25px',
+                textAlign: 'center'
+              }
+            }, [
+              React.createElement('h1', {
+                key: 'title',
+                style: { margin: 0, fontSize: '2.2em', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }
+              }, '🗺️ מדריך ספארי אולטימטיבי'),
+              React.createElement('p', {
+                key: 'subtitle',
+                style: { margin: '10px 0 0', opacity: 0.95 }
+              }, 'אוגנדה ותנזניה | אוגוסט 2026 | עם תמונות, טיפים ומסלולים חלופיים')
+            ]),
+
+            // Route Selector
+            React.createElement('div', {
+              key: 'route-selector',
+              style: {
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '15px',
+                padding: '25px',
+                flexWrap: 'wrap',
+                background: 'rgba(0,0,0,0.2)'
+              }
+            }, Object.entries(routes).map(([key, route]) =>
+              React.createElement('button', {
+                key: key,
+                onClick: () => { setSelectedOption(key); setSelectedLocation(null); },
+                style: {
+                  padding: '15px 25px',
+                  border: selectedOption === key ? `3px solid ${route.color}` : '2px solid rgba(255,255,255,0.2)',
+                  borderRadius: '15px',
+                  background: selectedOption === key ? `${route.color}22` : 'rgba(255,255,255,0.05)',
+                  color: 'white',
+                  cursor: 'pointer',
+                  minWidth: '200px',
+                  transition: 'all 0.3s'
+                }
+              }, [
+                React.createElement('div', {
+                  key: 'name',
+                  style: { fontWeight: 'bold', fontSize: '1.1em' }
+                }, (key === 'recommended' ? '⭐ ' : '') + route.name),
+                React.createElement('div', {
+                  key: 'subtitle',
+                  style: { fontSize: '0.85em', opacity: 0.8, marginTop: '5px' }
+                }, route.subtitle),
+                React.createElement('div', {
+                  key: 'price',
+                  style: { fontSize: '0.9em', marginTop: '8px', color: route.color }
+                }, `${route.days} ימים | $${route.price.toLocaleString()}`)
+              ])
+            )),
+
+            // Main Content - Simplified for space, showing key interactive elements
+            React.createElement('div', {
+              key: 'main-content',
+              style: {
+                display: 'grid',
+                gridTemplateColumns: window.innerWidth > 1024 ? '1fr 1fr' : '1fr',
+                gap: '25px',
+                padding: '25px',
+                maxWidth: '1500px',
+                margin: '0 auto'
+              }
+            }, [
+              // Map Section
+              React.createElement('div', {
+                key: 'map-section',
+                style: {
+                  background: 'rgba(255,255,255,0.05)',
+                  borderRadius: '20px',
+                  padding: '25px',
+                  backdropFilter: 'blur(10px)'
+                }
+              }, [
+                React.createElement('h2', {
+                  key: 'map-title',
+                  style: { color: '#ff8f00', marginTop: 0 }
+                }, `🗺️ מפת המסלול - ${currentRoute.name}`),
+                
+                React.createElement('svg', {
+                  key: 'map-svg',
+                  viewBox: '0 0 500 520',
+                  style: {
+                    width: '100%',
+                    height: 'auto',
+                    background: 'linear-gradient(180deg, #1a365d 0%, #234e52 100%)',
+                    borderRadius: '15px'
+                  }
+                }, [
+                  // Lake Victoria
+                  React.createElement('ellipse', {
+                    key: 'lake',
+                    cx: 340, cy: 150, rx: 65, ry: 55,
+                    fill: '#4299e1',
+                    opacity: 0.6
+                  }),
+                  React.createElement('text', {
+                    key: 'lake-text',
+                    x: 340, y: 155,
+                    textAnchor: 'middle',
+                    fontSize: 11,
+                    fill: 'white',
+                    opacity: 0.8
+                  }, 'אגם ויקטוריה'),
+                  
+                  // Uganda
+                  React.createElement('path', {
+                    key: 'uganda',
+                    d: 'M180,80 L400,80 L400,260 L280,290 L180,260 Z',
+                    fill: '#2d5016',
+                    stroke: '#48bb78',
+                    strokeWidth: 2,
+                    opacity: 0.4
+                  }),
+                  React.createElement('text', {
+                    key: 'uganda-text',
+                    x: 280, y: 110,
+                    textAnchor: 'middle',
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    fill: '#48bb78'
+                  }, '🇺🇬 אוגנדה'),
+                  
+                  // Tanzania
+                  React.createElement('path', {
+                    key: 'tanzania',
+                    d: 'M200,290 L440,290 L470,520 L180,520 L200,290 Z',
+                    fill: '#744210',
+                    stroke: '#ed8936',
+                    strokeWidth: 2,
+                    opacity: 0.4
+                  }),
+                  React.createElement('text', {
+                    key: 'tanzania-text',
+                    x: 320, y: 320,
+                    textAnchor: 'middle',
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    fill: '#ed8936'
+                  }, '🇹🇿 תנזניה'),
+                  
+                  // Route lines and markers
+                  ...currentRoute.itinerary.map((stop, idx) => {
+                    const loc = locations[stop.location];
+                    if (!loc) return null;
+                    const isSelected = selectedLocation === stop.location;
+                    const bgColor = loc.country === 'uganda' ? '#48bb78' : '#ed8936';
+                    
+                    // Route line
+                    const prevStop = idx > 0 ? currentRoute.itinerary[idx - 1] : null;
+                    const prevLoc = prevStop ? locations[prevStop.location] : null;
+                    
+                    return React.createElement('g', { key: `stop-${idx}` }, [
+                      // Route line
+                      prevLoc && React.createElement('line', {
+                        key: `line-${idx}`,
+                        x1: prevLoc.coords.x,
+                        y1: prevLoc.coords.y,
+                        x2: loc.coords.x,
+                        y2: loc.coords.y,
+                        stroke: stop.flight ? '#9f7aea' : isSelected ? '#ffd700' : 'rgba(255,255,255,0.5)',
+                        strokeWidth: isSelected ? 4 : 2,
+                        strokeDasharray: stop.flight ? '10,5' : 'none'
+                      }),
+                      
+                      // Location marker
+                      React.createElement('circle', {
+                        key: `circle-${idx}`,
+                        cx: loc.coords.x,
+                        cy: loc.coords.y,
+                        r: isSelected ? 22 : 18,
+                        fill: bgColor,
+                        stroke: isSelected ? '#ffd700' : 'white',
+                        strokeWidth: isSelected ? 4 : 2,
+                        style: { cursor: 'pointer' },
+                        onClick: () => setSelectedLocation(stop.location)
+                      }),
+                      React.createElement('text', {
+                        key: `day-${idx}`,
+                        x: loc.coords.x,
+                        y: loc.coords.y + 5,
+                        textAnchor: 'middle',
+                        fontSize: 12,
+                        fill: 'white',
+                        fontWeight: 'bold'
+                      }, stop.day),
+                      React.createElement('text', {
+                        key: `name-${idx}`,
+                        x: loc.coords.x,
+                        y: loc.coords.y + 35,
+                        textAnchor: 'middle',
+                        fontSize: 10,
+                        fill: 'white',
+                        fontWeight: 'bold'
+                      }, loc.name.split(' ')[0]),
+                      stop.highlight && React.createElement('text', {
+                        key: `highlight-${idx}`,
+                        x: loc.coords.x + 22,
+                        y: loc.coords.y - 15,
+                        fontSize: 16
+                      }, stop.highlight)
+                    ]);
+                  }).filter(Boolean)
+                ]),
+                
+                // Quick stats
+                React.createElement('div', {
+                  key: 'stats',
+                  style: {
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: '10px',
+                    marginTop: '20px'
+                  }
+                }, [
+                  { icon: '📅', label: 'ימים', value: currentRoute.days },
+                  { icon: '💰', label: 'סה"כ', value: `$${currentRoute.price.toLocaleString()}` },
+                  { icon: '👤', label: 'לאדם', value: `$${currentRoute.pricePerPerson.toLocaleString()}` },
+                  { icon: '🏨', label: 'לילות', value: currentRoute.days - 1 }
+                ].map((stat, idx) =>
+                  React.createElement('div', {
+                    key: idx,
+                    style: {
+                      background: 'rgba(255,255,255,0.1)',
+                      padding: '12px',
+                      borderRadius: '10px',
+                      textAlign: 'center'
+                    }
+                  }, [
+                    React.createElement('div', { key: 'icon', style: { fontSize: '1.5em' } }, stat.icon),
+                    React.createElement('div', { key: 'label', style: { fontSize: '0.8em', opacity: 0.7 } }, stat.label),
+                    React.createElement('div', { key: 'value', style: { fontWeight: 'bold', color: currentRoute.color } }, stat.value)
+                  ])
+                ))
+              ]),
+
+              // Details Section
+              React.createElement('div', {
+                key: 'details-section',
+                style: {
+                  background: 'rgba(255,255,255,0.05)',
+                  borderRadius: '20px',
+                  padding: '25px',
+                  backdropFilter: 'blur(10px)'
+                }
+              }, [
+                // Tabs
+                React.createElement('div', {
+                  key: 'tabs',
+                  style: { display: 'flex', gap: '10px', marginBottom: '20px' }
+                }, [
+                  { id: 'map', icon: '📍', label: 'יעדים' },
+                  { id: 'tips', icon: '💡', label: 'טיפים' },
+                  { id: 'compare', icon: '⚖️', label: 'השוואה' }
+                ].map(tab =>
+                  React.createElement('button', {
+                    key: tab.id,
+                    onClick: () => setActiveTab(tab.id),
+                    style: {
+                      flex: 1,
+                      padding: '12px',
+                      border: 'none',
+                      borderRadius: '10px',
+                      background: activeTab === tab.id ? currentRoute.color : 'rgba(255,255,255,0.1)',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontWeight: activeTab === tab.id ? 'bold' : 'normal'
+                    }
+                  }, `${tab.icon} ${tab.label}`)
+                )),
+
+                // Content based on active tab
+                activeTab === 'map' && React.createElement('div', {
+                  key: 'map-content',
+                  style: { maxHeight: '500px', overflowY: 'auto' }
+                }, selectedLocation && currentLocation ? [
+                  React.createElement('div', { key: 'location-card', style: { position: 'relative', borderRadius: '15px', overflow: 'hidden', marginBottom: '20px' } }, [
+                    React.createElement('img', {
+                      key: 'img',
+                      src: currentLocation.image,
+                      alt: currentLocation.name,
+                      style: { width: '100%', height: '200px', objectFit: 'cover' }
+                    }),
+                    React.createElement('div', {
+                      key: 'overlay',
+                      style: {
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        background: 'linear-gradient(transparent, rgba(0,0,0,0.9))',
+                        padding: '20px'
+                      }
+                    }, [
+                      React.createElement('h3', { key: 'name', style: { margin: 0, fontSize: '1.5em' } }, currentLocation.name),
+                      React.createElement('p', { key: 'name-en', style: { margin: '5px 0 0', opacity: 0.8, fontSize: '0.9em' } }, currentLocation.nameEn)
+                    ])
+                  ]),
+                  React.createElement('p', { key: 'desc', style: { opacity: 0.9, lineHeight: 1.6 } }, currentLocation.description),
+                  React.createElement('div', {
+                    key: 'highlights',
+                    style: { display: 'flex', gap: '8px', flexWrap: 'wrap', margin: '15px 0' }
+                  }, currentLocation.highlights.map((h, i) =>
+                    React.createElement('span', {
+                      key: i,
+                      style: {
+                        background: 'rgba(255,255,255,0.1)',
+                        padding: '8px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.9em'
+                      }
+                    }, h)
+                  )),
+                  React.createElement('h4', { key: 'tips-title', style: { color: '#ffd700', marginTop: '20px' } }, '💡 טיפים חשובים'),
+                  React.createElement('ul', {
+                    key: 'tips-list',
+                    style: { padding: '0 20px', lineHeight: 1.8 }
+                  }, currentLocation.tips.map((tip, i) =>
+                    React.createElement('li', { key: i, style: { marginBottom: '8px' } }, tip)
+                  )),
+                  React.createElement('button', {
+                    key: 'back',
+                    onClick: () => setSelectedLocation(null),
+                    style: {
+                      width: '100%',
+                      marginTop: '20px',
+                      padding: '12px',
+                      background: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '10px',
+                      color: 'white',
+                      cursor: 'pointer'
+                    }
+                  }, '← חזרה לרשימה')
+                ] : currentRoute.itinerary.map((stop, idx) => {
+                  const loc = locations[stop.location];
+                  if (!loc) return null;
+                  return React.createElement('div', {
+                    key: idx,
+                    onClick: () => setSelectedLocation(stop.location),
+                    style: {
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '15px',
+                      padding: '15px',
+                      marginBottom: '10px',
+                      background: 'rgba(255,255,255,0.05)',
+                      borderRadius: '12px',
+                      cursor: 'pointer',
+                      borderRight: `4px solid ${loc.country === 'uganda' ? '#48bb78' : '#ed8936'}`,
+                      transition: 'background 0.3s'
+                    }
+                  }, [
+                    React.createElement('img', {
+                      key: 'img',
+                      src: loc.image,
+                      alt: loc.name,
+                      style: { width: '70px', height: '50px', objectFit: 'cover', borderRadius: '8px' }
+                    }),
+                    React.createElement('div', { key: 'info', style: { flex: 1 } }, [
+                      React.createElement('div', { key: 'name', style: { fontWeight: 'bold' } }, [
+                        React.createElement('span', {
+                          key: 'day',
+                          style: {
+                            background: loc.country === 'uganda' ? '#48bb78' : '#ed8936',
+                            padding: '2px 8px',
+                            borderRadius: '10px',
+                            fontSize: '0.8em',
+                            marginLeft: '8px'
+                          }
+                        }, `יום ${stop.day}`),
+                        ` ${loc.name}`,
+                        stop.highlight && React.createElement('span', { key: 'hl', style: { marginRight: '8px' } }, stop.highlight)
+                      ]),
+                      React.createElement('div', {
+                        key: 'nights',
+                        style: { fontSize: '0.85em', opacity: 0.7, marginTop: '3px' }
+                      }, `${stop.nights > 0 ? stop.nights + ' לילות' : 'יציאה'}${stop.flight ? ' | ✈️ טיסה' : ''}`)
+                    ]),
+                    React.createElement('span', { key: 'arrow', style: { opacity: 0.5 } }, '←')
+                  ]);
+                }).filter(Boolean))
+              ])
+            ]),
+
+            // Timeline
+            React.createElement('div', {
+              key: 'timeline',
+              style: {
+                padding: '25px',
+                margin: '0 25px 25px',
+                background: 'rgba(255,255,255,0.05)',
+                borderRadius: '20px'
+              }
+            }, [
+              React.createElement('h3', {
+                key: 'title',
+                style: { color: '#ff8f00', marginTop: 0 }
+              }, `📅 ציר זמן - ${currentRoute.name}`),
+              React.createElement('div', {
+                key: 'timeline-items',
+                style: {
+                  display: 'flex',
+                  overflowX: 'auto',
+                  gap: '8px',
+                  padding: '15px 0'
+                }
+              }, currentRoute.itinerary.map((stop, idx) => {
+                const loc = locations[stop.location];
+                if (!loc) return null;
+                return React.createElement('div', {
+                  key: idx,
+                  onClick: () => setSelectedLocation(stop.location),
+                  style: {
+                    minWidth: '100px',
+                    padding: '15px 10px',
+                    background: selectedLocation === stop.location ? '#ffd700' : loc.country === 'uganda' ? '#48bb78' : '#ed8936',
+                    color: selectedLocation === stop.location ? '#1a1a2e' : 'white',
+                    borderRadius: '12px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s'
+                  }
+                }, [
+                  React.createElement('div', { key: 'day', style: { fontWeight: 'bold', fontSize: '1.1em' } }, `יום ${stop.day}`),
+                  React.createElement('div', { key: 'name', style: { fontSize: '0.8em', marginTop: '5px', opacity: 0.9 } }, loc.name.split(' ')[0]),
+                  stop.highlight && React.createElement('div', { key: 'hl', style: { fontSize: '1.3em', marginTop: '5px' } }, stop.highlight),
+                  stop.flight && React.createElement('div', { key: 'flight', style: { marginTop: '3px' } }, '✈️')
+                ]);
+              }).filter(Boolean))
+            ]),
+
+            // Footer
+            React.createElement('div', {
+              key: 'footer',
+              style: {
+                background: 'rgba(0,0,0,0.3)',
+                padding: '25px',
+                textAlign: 'center'
+              }
+            }, [
+              React.createElement('p', {
+                key: 'text1',
+                style: { opacity: 0.7 }
+              }, '🌍 מדריך ספארי אינטראקטיבי | אוגוסט 2026'),
+              React.createElement('p', {
+                key: 'text2',
+                style: { opacity: 0.5, fontSize: '0.9em' }
+              }, 'לחצו על כל יעד במפה לקבלת מידע מפורט, תמונות וטיפים')
+            ])
+          ]);
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(SafariCompletePlanner));
+    </script>
+</body>
+</html>
+

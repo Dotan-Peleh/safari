@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מסע ספארי - אוגנדה ותנזניה</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+                        url('public/images/hero-safari.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            animation: bounce 2s infinite;
+            font-size: 2em;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(15px); }
+        }
+
+        /* Destination Sections */
+        .destination {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        .destination.reverse {
+            direction: ltr;
+        }
+
+        .destination.reverse .dest-content {
+            direction: rtl;
+        }
+
+        .dest-image {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        .dest-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dest-content {
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .dest-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b00, #ff9500);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .dest-badge.uganda {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+
+        .dest-content h2 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dest-content h3 {
+            font-size: 1.3em;
+            opacity: 0.7;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .dest-content p {
+            font-size: 1.15em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .highlight-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tips-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border-right: 4px solid #ff9500;
+        }
+
+        .tips-box.uganda {
+            border-right-color: #00cec9;
+        }
+
+        .tips-box h4 {
+            color: #ff9500;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .tips-box.uganda h4 {
+            color: #00cec9;
+        }
+
+        .tips-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-box li {
+            padding: 8px 0;
+            padding-right: 25px;
+            position: relative;
+        }
+
+        .tips-box li::before {
+            content: '💡';
+            position: absolute;
+            right: 0;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.08);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff9500;
+        }
+
+        .stat.uganda .stat-value {
+            color: #00cec9;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 100px 60px;
+            background: linear-gradient(180deg, #0a0a0a, #1a1a2e);
+        }
+
+        .gallery-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 30px 20px 20px;
+        }
+
+        .gallery-overlay h4 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* Route Comparison */
+        .comparison-section {
+            padding: 100px 60px;
+            background: #0d0d0d;
+        }
+
+        .comparison-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .route-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .route-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .route-card.recommended {
+            border: 2px solid #4CAF50;
+            position: relative;
+        }
+
+        .route-card.recommended::before {
+            content: '⭐ מומלץ';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #4CAF50;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            z-index: 10;
+        }
+
+        .route-image {
+            height: 200px;
+            position: relative;
+        }
+
+        .route-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .route-content {
+            padding: 30px;
+        }
+
+        .route-content h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .route-content .subtitle {
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        .route-price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff9500;
+            margin-bottom: 20px;
+        }
+
+        .route-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .route-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Final CTA */
+        .final-section {
+            padding: 150px 60px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)),
+                        url('public/images/final-safari.jpg') center/cover;
+        }
+
+        .final-section h2 {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        .final-section p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(135deg, #ff6b00, #ff9500);
+            color: white;
+        }
+
+        .cta-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .destination {
+                grid-template-columns: 1fr;
+            }
+            
+            .dest-image {
+                height: 50vh;
+                position: relative;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .route-cards {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>🌍 מסע ספארי</h1>
+        <p>14 ימים של הרפתקה בלתי נשכחת באוגנדה ותנזניה</p>
+        <p style="margin-top: 30px; font-size: 1.2em;">גורילות 🦍 • שימפנזים 🐒 • הנדידה הגדולה 🦁</p>
+        <div class="scroll-indicator">⬇️</div>
+    </section>
+
+    <!-- Bwindi Gorillas -->
+    <section class="destination">
+        <div class="dest-image">
+            <img src="public/images/bwindi-gorilla.jpg" alt="Mountain Gorilla">
+        </div>
+        <div class="dest-content">
+            <span class="dest-badge uganda">🇺🇬 אוגנדה</span>
+            <h2>יער בווינדי</h2>
+            <h3>Bwindi Impenetrable Forest</h3>
+            <p>
+                רגע שישנה את חייכם לנצח. לעמוד פנים אל פנים עם גורילת הרים - 
+                יצור שחולק איתנו 98.4% מה-DNA. רק כ-1,000 גורילות הרים נותרו בעולם,
+                ומחציתן חיות כאן, ביער הבלתי חדיר הזה.
+            </p>
+
+            <div class="highlights">
+                <span class="highlight-tag">🦍 מעקב גורילות</span>
+                <span class="highlight-tag">🌿 יער גשם עתיק</span>
+                <span class="highlight-tag">👥 26 משפחות מורגלות</span>
+            </div>
+
+            <div class="tips-box uganda">
+                <h4>💡 טיפים חיוניים</h4>
+                <ul>
+                    <li>הזמינו אשרה 3 חודשים מראש ($800/אדם)</li>
+                    <li>שכרו סבל ($20) - ציידים לשעבר שהפכו לשומרי טבע</li>
+                    <li>שמרו מרחק 7 מטר • ללא פלאש!</li>
+                    <li>אל תלכו אם יש לכם שפעת - הגורילות רגישות</li>
+                </ul>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat uganda">
+                    <div class="stat-icon">🦍</div>
+                    <div class="stat-value">~450</div>
+                    <div class="stat-label">גורילות</div>
+                </div>
+                <div class="stat uganda">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value">2-6 שעות</div>
+                    <div class="stat-label">הליכה</div>
+                </div>
+                <div class="stat uganda">
+                    <div class="stat-icon">👀</div>
+                    <div class="stat-value">1 שעה</div>
+                    <div class="stat-label">עם הגורילות</div>
+                </div>
+                <div class="stat uganda">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value">$800</div>
+                    <div class="stat-label">אשרה</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kibale Chimps -->
+    <section class="destination reverse">
+        <div class="dest-content">
+            <span class="dest-badge uganda">🇺🇬 אוגנדה</span>
+            <h2>יער קיבאלה</h2>
+            <h3>Kibale Forest - בירת הפרימטים</h3>
+            <p>
+                1,500 שימפנזים חיים ביער הזה - הריכוז הגבוה ביותר באפריקה.
+                בניגוד לגורילות השקטות, השימפנזים רועשים, משחקים, רבים ומבדרים.
+                90% סיכוי לראות אותם!
+            </p>
+
+            <div class="highlights">
+                <span class="highlight-tag">🐒 1,500 שימפנזים</span>
+                <span class="highlight-tag">🌳 13 מיני קופים</span>
+                <span class="highlight-tag">🦜 375 מיני ציפורים</span>
+            </div>
+
+            <div class="tips-box uganda">
+                <h4>💡 טיפים חיוניים</h4>
+                <ul>
+                    <li>מעקב בוקר (8:00) הכי טוב - השימפנזים פעילים</li>
+                    <li>לבשו צבעים ניטרליים - לא שחור או כחול (מושך חרקים)</li>
+                    <li>אל תחקו את הקולות שלהם - יכול לעורר תוקפנות</li>
+                    <li>גיל מינימום 12 שנים (מתחת לגורילות)</li>
+                </ul>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat uganda">
+                    <div class="stat-icon">🐒</div>
+                    <div class="stat-value">90%+</div>
+                    <div class="stat-label">סיכוי לראות</div>
+                </div>
+                <div class="stat uganda">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value">2-3 שעות</div>
+                    <div class="stat-label">הליכה</div>
+                </div>
+                <div class="stat uganda">
+                    <div class="stat-icon">👀</div>
+                    <div class="stat-value">1 שעה</div>
+                    <div class="stat-label">עם השימפנזים</div>
+                </div>
+                <div class="stat uganda">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value">$250</div>
+                    <div class="stat-label">אשרה</div>
+                </div>
+            </div>
+        </div>
+        <div class="dest-image">
+            <img src="public/images/kibale-chimp.jpg" alt="Chimpanzee">
+        </div>
+    </section>
+
+    <!-- Serengeti North - Migration -->
+    <section class="destination">
+        <div class="dest-image">
+            <img src="public/images/serengeti-migration.jpg" alt="Wildebeest Migration">
+        </div>
+        <div class="dest-content">
+            <span class="dest-badge">🇹🇿 תנזניה</span>
+            <h2>צפון סרנגטי</h2>
+            <h3>נהר המארה - חציית הנדידה</h3>
+            <p>
+                1.8 מיליון חיות חוצות את נהר המארה בחודשי יולי-ספטמבר.
+                תנינים ממתינים, אריות אורבים, והעדר מתכנס על הגדה...
+                ואז, באחת, המראה המדהים ביותר בטבע מתחולל.
+            </p>
+
+            <div class="highlights">
+                <span class="highlight-tag">🌊 חציית נהר המארה</span>
+                <span class="highlight-tag">🦁 צפיפות טורפים גבוהה</span>
+                <span class="highlight-tag">🎈 טיסת בלון ($500)</span>
+            </div>
+
+            <div class="tips-box">
+                <h4>💡 טיפים חיוניים</h4>
+                <ul>
+                    <li>הגיעו לנקודות החצייה עד 6:30 בבוקר</li>
+                    <li>עדשה 200-400mm חיונית לצילום</li>
+                    <li>העדרים עשויים להמתין ימים לפני שחוצים</li>
+                    <li>אוגוסט = עיתוי מושלם!</li>
+                </ul>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-icon">🦬</div>
+                    <div class="stat-value">1.8M</div>
+                    <div class="stat-label">חיות בנדידה</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🐊</div>
+                    <div class="stat-value">נהר המארה</div>
+                    <div class="stat-label">החצייה המפורסמת</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-value">יולי-ספט'</div>
+                    <div class="stat-label">עונה מומלצת</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🎈</div>
+                    <div class="stat-value">$500</div>
+                    <div class="stat-label">טיסת בלון</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ngorongoro -->
+    <section class="destination reverse">
+        <div class="dest-content">
+            <span class="dest-badge">🇹🇿 תנזניה</span>
+            <h2>מכתש נגורונגורו</h2>
+            <h3>גן עדן של אפריקה</h3>
+            <p>
+                המכתש הגדול והשלם בעולם. 260 קמ"ר של שפע חיים - 
+                25,000 יונקים גדולים בשטח סגור אחד. הצפיפות הגבוהה ביותר 
+                של טורפים באפריקה. וכאן - הסיכוי הטוב ביותר לראות קרנף שחור.
+            </p>
+
+            <div class="highlights">
+                <span class="highlight-tag">🦏 קרנף שחור (נדיר!)</span>
+                <span class="highlight-tag">🦁 Big 5 ביום אחד</span>
+                <span class="highlight-tag">🦩 פלמינגו באגם מגדי</span>
+            </div>
+
+            <div class="tips-box">
+                <h4>💡 טיפים חיוניים</h4>
+                <ul>
+                    <li>השער נפתח ב-6:00 - היו ראשונים!</li>
+                    <li>קרנפים בדרום-מזרח המכתש ליד אגם מגדי</li>
+                    <li>הביאו שכבות - קר בבוקר (2,300 מטר)</li>
+                    <li>עמלת כניסה גבוהה ($295/רכב) - שווה!</li>
+                </ul>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-icon">🦏</div>
+                    <div class="stat-value">~30</div>
+                    <div class="stat-label">קרנפים שחורים</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🦁</div>
+                    <div class="stat-value">25,000</div>
+                    <div class="stat-label">יונקים גדולים</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">📏</div>
+                    <div class="stat-value">260 קמ"ר</div>
+                    <div class="stat-label">שטח המכתש</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">⛰️</div>
+                    <div class="stat-value">600 מ'</div>
+                    <div class="stat-label">עומק</div>
+                </div>
+            </div>
+        </div>
+        <div class="dest-image">
+            <img src="public/images/ngorongoro-crater.jpg" alt="Ngorongoro Crater">
+        </div>
+    </section>
+
+    <!-- Tarangire -->
+    <section class="destination">
+        <div class="dest-image">
+            <img src="public/images/tarangire-elephants.jpg" alt="Elephants in Tarangire">
+        </div>
+        <div class="dest-content">
+            <span class="dest-badge">🇹🇿 תנזניה</span>
+            <h2>טרנגירה</h2>
+            <h3>ארץ הפילים והבאובבים</h3>
+            <p>
+                עצי באובב ענקיים בני אלפי שנים, צלליות פילים בשקיעה,
+                ועדרים אינסופיים. פחות תיירותי מסרנגטי, 
+                יותר אינטימי ואותנטי. והפילים? למעלה מ-5,000.
+            </p>
+
+            <div class="highlights">
+                <span class="highlight-tag">🐘 5,000+ פילים</span>
+                <span class="highlight-tag">🌳 באובבים בני 1,000 שנה</span>
+                <span class="highlight-tag">🌙 ספארי לילה</span>
+            </div>
+
+            <div class="tips-box">
+                <h4>💡 טיפים חיוניים</h4>
+                <ul>
+                    <li>שקיעות מדהימות עם צלליות באובב - מקום מושלם לצילום</li>
+                    <li>פילים מתרכזים ליד הנהר בעונה היבשה</li>
+                    <li>אחד הפארקים היחידים עם ספארי לילה ($100)</li>
+                    <li>550+ מיני ציפורים - גן עדן לצפרים</li>
+                </ul>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-icon">🐘</div>
+                    <div class="stat-value">5,000+</div>
+                    <div class="stat-label">פילים</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🌳</div>
+                    <div class="stat-value">1,000+</div>
+                    <div class="stat-label">שנה - עצי באובב</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🦅</div>
+                    <div class="stat-value">550+</div>
+                    <div class="stat-label">מיני ציפורים</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon">🌙</div>
+                    <div class="stat-value">$100</div>
+                    <div class="stat-label">ספארי לילה</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-section">
+        <h2>🖼️ רגעים מהמסע</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item tall">
+                <img src="public/images/gallery-lion.jpg" alt="Lion">
+                <div class="gallery-overlay">
+                    <h4>🦁 מלך הסוואנה</h4>
+                    <p>אריות בסרנגטי</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="public/images/gallery-zebras.jpg" alt="Zebras">
+                <div class="gallery-overlay">
+                    <h4>🦓 עדרי זברות</h4>
+                    <p>הנדידה הגדולה</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="public/images/gallery-giraffe.jpg" alt="Giraffe">
+                <div class="gallery-overlay">
+                    <h4>🦒 ג'ירפות</h4>
+                    <p>טרנגירה</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="public/images/gallery-hippo.jpg" alt="Hippo">
+                <div class="gallery-overlay">
+                    <h4>🦛 היפופוטמים</h4>
+                    <p>נגורונגורו</p>
+                </div>
+            </div>
+            <div class="gallery-item tall">
+                <img src="public/images/gallery-sunset.jpg" alt="Sunset Safari">
+                <div class="gallery-overlay">
+                    <h4>🌅 שקיעה בסוואנה</h4>
+                    <p>רגעי קסם</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="public/images/gallery-buffalo.jpg" alt="Buffalo">
+                <div class="gallery-overlay">
+                    <h4>🐃 באפלו</h4>
+                    <p>Big 5</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Route Comparison -->
+    <section class="comparison-section">
+        <h2>🗺️ בחר את המסלול שלך</h2>
+        <div class="route-cards">
+            <!-- Recommended -->
+            <div class="route-card recommended">
+                <div class="route-image">
+                    <img src="public/images/route-gorilla.jpg" alt="Gorilla">
+                </div>
+                <div class="route-content">
+                    <h3>המסלול המומלץ</h3>
+                    <p class="subtitle">משולב בינוני - הצעה 4</p>
+                    <div class="route-price">$29,220</div>
+                    <p>14 ימים | $9,740 לאדם</p>
+                    <ul class="route-features">
+                        <li>✅ גורילות בבווינדי</li>
+                        <li>✅ שימפנזים בקיבאלה</li>
+                        <li>✅ חציית נהר המארה</li>
+                        <li>✅ קרנף שחור בנגורונגורו</li>
+                        <li>✅ פילים בטרנגירה</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Alternative -->
+            <div class="route-card">
+                <div class="route-image">
+                    <img src="public/images/route-beach.jpg" alt="Beach">
+                </div>
+                <div class="route-content">
+                    <h3>מסלול חלופי</h3>
+                    <p class="subtitle">אוגנדה + זנזיבר</p>
+                    <div class="route-price">$32,000</div>
+                    <p>14 ימים | $10,667 לאדם</p>
+                    <ul class="route-features">
+                        <li>✅ גורילות ושימפנזים</li>
+                        <li>✅ קווין אליזבת + שייט</li>
+                        <li>✅ 3 לילות בזנזיבר</li>
+                        <li>❌ ללא חציית המארה</li>
+                        <li>❌ ללא טרנגירה</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tanzania Only -->
+            <div class="route-card">
+                <div class="route-image">
+                    <img src="public/images/route-safari.jpg" alt="Safari">
+                </div>
+                <div class="route-content">
+                    <h3>תנזניה בלבד</h3>
+                    <p class="subtitle">תקציבי - הצעה 1</p>
+                    <div class="route-price">$8,304</div>
+                    <p>7 ימים | $2,768 לאדם</p>
+                    <ul class="route-features">
+                        <li>✅ סרנגטי + נגורונגורו</li>
+                        <li>✅ טרנגירה</li>
+                        <li>✅ Big 5</li>
+                        <li>❌ ללא גורילות</li>
+                        <li>❌ ללא שימפנזים</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <section class="final-section">
+        <h2>🌍 מוכנים להרפתקה?</h2>
+        <p>
+            אוגוסט 2026 מחכה לכם. גורילות, שימפנזים, הנדידה הגדולה,
+            ורגעים שישנו את חייכם לנצח.
+        </p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-btn primary">📞 צרו קשר עם הסוכן</a>
+            <a href="#" class="cta-btn secondary">📋 הורידו את המדריך</a>
+        </div>
+        <p style="margin-top: 50px; opacity: 0.6; font-size: 0.9em;">
+            💰 סה"כ מומלץ: $29,220 ל-3 אנשים | 14 ימים | אוגוסט 2026
+        </p>
+    </section>
+
+</body>
+</html>
+
