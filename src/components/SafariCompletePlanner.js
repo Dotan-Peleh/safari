@@ -9,7 +9,7 @@ const ngorongoroCrater = '/images/ngorongoro-crater.jpg';
 const tarangireElephants = '/images/tarangire-elephants.jpg';
 
 const SafariCompletePlanner = () => {
-  const [selectedOption, setSelectedOption] = useState('recommended');
+  const [selectedOption, setSelectedOption] = useState('proposal_4');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [activeTab, setActiveTab] = useState('map');
 
@@ -207,14 +207,18 @@ const SafariCompletePlanner = () => {
 
   // Route options
   const routes = {
-    recommended: {
-      name: "המסלול המומלץ",
-      subtitle: "הצעה 4 - משולב בינוני",
+    proposal_4: {
+      name: "הצעה 4",
+      subtitle: "משולב מלא - אוגנדה ותנזניה",
       days: 14,
-      price: 29220,
-      pricePerPerson: 9740,
+      price: 37920,
+      pricePerPerson: 12640,
+      priceWithFlight: 40800,
+      pricePerPersonWithFlight: 13600,
+      flightCost: 2880,
+      flightCostPerPerson: 960,
       color: "#4CAF50",
-      description: "השילוב המושלם: גורילות + שימפנזים + הנדידה הגדולה",
+      description: "השילוב המושלם: גורילות + שימפנזים + הנדידה הגדולה + טיסה פנימית",
       itinerary: [
         { day: 1, location: "entebbe", nights: 1, highlight: false },
         { day: 2, location: "kibale", nights: 2, highlight: "🐒" },
@@ -225,24 +229,39 @@ const SafariCompletePlanner = () => {
         { day: 12, location: "tarangire", nights: 2, highlight: "🐘" },
         { day: 14, location: "arusha", nights: 0, highlight: false }
       ],
+      includes: [
+        "גורילות ($800 לאדם)",
+        "שימפנזים ($250 לאדם)",
+        "טיסה פנימית: Kisoro-Entebbe-Kogatende ($960 לאדם)",
+        "Bigodi Wetland Walk",
+        "כל דמי כניסה לפארקים",
+        "רכב 4x4 + מדריך מקצועי",
+        "מים מינרליים ברכב",
+        "Flying Doctor (פינוי חירום)"
+      ],
       pros: [
         "חוויה מלאה של שתי המדינות - אוגנדה ותנזניה",
-        "גורילות + שימפנזים + Big 5 מלא",
+        "גורילות ($800) + שימפנזים ($250) + Big 5 מלא",
         "חציית נהר המארה - הנדידה הגדולה",
         "קרנף שחור בנגורונגורו",
         "טרנגירה - 5,000+ פילים",
+        "טיסה פנימית - חוסך זמן נסיעה",
+        "Flying Doctor - ביטוח פינוי חירום",
         "עונה מושלמת לנדידה (אוגוסט)"
       ],
       cons: [
         "14 ימים - דורש זמן רב",
-        "מחיר גבוה יחסית ($9,740 לאדם)",
-        "ללא זנזיבר (יש בחלופי)",
-        "ללא אריות מטפסי עצים (יש בחלופי)"
+        "מחיר גבוה ($12,640 לאדם, $13,600 עם טיסה)",
+        "טיסה פנימית יקרה ($960 לאדם)",
+        "ללא זנזיבר",
+        "ללא אריות מטפסי עצים"
       ],
       uniqueFeatures: [
         "🌊 חציית נהר המארה + גורילות + שימפנזים - השילוב היחיד",
+        "✈️ טיסה פנימית - חוסך 10+ שעות נסיעה",
         "🦏 קרנף שחור + טרנגירה - Big 5 מלא",
-        "🗺️ שתי המדינות - חוויה מקיפה ביותר"
+        "🗺️ שתי המדינות - חוויה מקיפה ביותר",
+        "🏥 Flying Doctor - ביטוח פינוי חירום"
       ]
     },
     alternative: {
@@ -281,14 +300,14 @@ const SafariCompletePlanner = () => {
         "🌴 חוויה ייחודית של זנזיבר"
       ]
     },
-    tanzania_only: {
-      name: "תנזניה בלבד",
+    tanzania_7days: {
+      name: "תנזניה 7 ימים",
       subtitle: "הצעה 1 - תקציבי",
       days: 7,
       price: 8304,
       pricePerPerson: 2768,
       color: "#FF9800",
-      description: "מסלול קלאסי של צפון תנזניה",
+      description: "מסלול קלאסי של צפון תנזניה - 7 ימים",
       itinerary: [
         { day: 1, location: "arusha", nights: 1, highlight: false },
         { day: 2, location: "tarangire", nights: 1, highlight: "🐘" },
@@ -316,8 +335,43 @@ const SafariCompletePlanner = () => {
         "🦏 קרנף שחור + 🐘 טרנגירה - Big 5 מלא"
       ]
     },
-    uganda_only: {
-      name: "אוגנדה בלבד",
+    tanzania_8days: {
+      name: "תנזניה 8 ימים",
+      subtitle: "הצעה 3 מעודכנת - עם יום נוסף",
+      days: 8,
+      price: 9500,
+      pricePerPerson: 3167,
+      color: "#E91E63",
+      description: "מסלול תנזניה מורחב - 8 ימים עם חציית המארה",
+      itinerary: [
+        { day: 1, location: "arusha", nights: 1, highlight: false },
+        { day: 2, location: "tarangire", nights: 1, highlight: "🐘" },
+        { day: 3, location: "serengeti_north", nights: 3, highlight: "🌊" },
+        { day: 6, location: "serengeti_central", nights: 1, highlight: false },
+        { day: 7, location: "ngorongoro", nights: 1, highlight: "🦏" },
+        { day: 8, location: "arusha", nights: 0, highlight: false }
+      ],
+      pros: [
+        "יום נוסף בצפון סרנגטי - יותר סיכוי לראות חצייה",
+        "3 לילות בצפון סרנגטי - זמן מספק לנדידה",
+        "חציית נהר המארה - הנדידה הגדולה",
+        "קרנף שחור בנגורונגורו",
+        "טרנגירה - 5,000+ פילים",
+        "כל ה-Big 5"
+      ],
+      cons: [
+        "ללא גורילות ושימפנזים",
+        "מחיר גבוה יותר מהצעה 7 ימים",
+        "רק תנזניה - ללא אוגנדה"
+      ],
+      uniqueFeatures: [
+        "🌊 3 לילות בצפון סרנגטי - זמן מיטבי לנדידה",
+        "📅 יום נוסף - יותר זמן לראות חציות",
+        "🦁 Big 5 מלא בתנזניה"
+      ]
+    },
+    uganda_7days: {
+      name: "אוגנדה 7 ימים",
       subtitle: "הצעה 3 - פרימטים מלא",
       days: 7,
       price: 9150,
@@ -386,11 +440,16 @@ const SafariCompletePlanner = () => {
             }}
           >
             <div style={{ fontWeight: 'bold', fontSize: '1.1em' }}>
-              {key === 'recommended' && '⭐ '}{route.name}
+              {key === 'proposal_4' && '⭐ '}{route.name}
             </div>
             <div style={{ fontSize: '0.85em', opacity: 0.8, marginTop: '5px' }}>{route.subtitle}</div>
             <div style={{ fontSize: '0.9em', marginTop: '8px', color: route.color }}>
-              {route.days} ימים | ${route.price.toLocaleString()}
+              {route.days} ימים | ${route.pricePerPerson.toLocaleString()}/אדם
+              {route.priceWithFlight && (
+                <div style={{ fontSize: '0.8em', opacity: 0.8, marginTop: '3px' }}>
+                  ${route.pricePerPersonWithFlight.toLocaleString()}/אדם עם טיסה
+                </div>
+              )}
             </div>
           </button>
         ))}
@@ -867,30 +926,39 @@ const SafariCompletePlanner = () => {
                 {Object.entries(routes).map(([key, route]) => (
                   <div key={key} style={{ marginBottom: '25px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px', border: `2px solid ${route.color}40` }}>
                     <h5 style={{ color: route.color, marginBottom: '15px', fontSize: '1.2em', fontWeight: 'bold' }}>
-                      {key === 'recommended' && '⭐ '}{route.name} ({route.subtitle})
+                      {key === 'proposal_4' && '⭐ '}{route.name} ({route.subtitle})
                     </h5>
                     
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
                       <div style={{ background: 'rgba(72,187,120,0.1)', padding: '15px', borderRadius: '10px' }}>
                         <h6 style={{ margin: '0 0 10px', color: '#48bb78', fontSize: '1em' }}>✅ מה יש רק כאן:</h6>
                         <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
-                          {key === 'recommended' && [
-                            <li key="1">🌊 חציית נהר המארה + גורילות + שימפנזים</li>,
-                            <li key="2">🦏 קרנף שחור + טרנגירה (Big 5 מלא)</li>,
-                            <li key="3">🗺️ שתי המדינות - חוויה מלאה</li>
+                          {key === 'proposal_4' && [
+                            <li key="1">🌊 חציית נהר המארה + גורילות + שימפנזים - השילוב היחיד</li>,
+                            <li key="2">✈️ טיסה פנימית - חוסך 10+ שעות נסיעה</li>,
+                            <li key="3">🦏 קרנף שחור + טרנגירה (Big 5 מלא)</li>,
+                            <li key="4">🗺️ שתי המדינות - חוויה מקיפה ביותר</li>,
+                            <li key="5">🏥 Flying Doctor - ביטוח פינוי חירום</li>
                           ]}
                           {key === 'alternative' && [
                             <li key="1">🏖️ 3 לילות בזנזיבר - התאוששות</li>,
                             <li key="2">🦁 אריות מטפסי עצים + שייט קזינגה</li>,
                             <li key="3">🌴 חוויה ייחודית של זנזיבר</li>
                           ]}
-                          {key === 'tanzania_only' && [
+                          {key === 'tanzania_7days' && [
                             <li key="1">💰 המחיר הכי נמוך ($2,768 לאדם)</li>,
                             <li key="2">🌊 חציית נהר המארה - הנדידה הגדולה</li>,
                             <li key="3">🦏 קרנף שחור בנגורונגורו</li>,
-                            <li key="4">🐘 טרנגירה - 5,000+ פילים</li>
+                            <li key="4">🐘 טרנגירה - 5,000+ פילים</li>,
+                            <li key="5">⏱️ 7 ימים בלבד - אידיאלי לזמן מוגבל</li>
                           ]}
-                          {key === 'uganda_only' && [
+                          {key === 'tanzania_8days' && [
+                            <li key="1">📅 יום נוסף בצפון סרנגטי - יותר סיכוי לראות חצייה</li>,
+                            <li key="2">🌊 3 לילות בצפון סרנגטי - זמן מיטבי לנדידה</li>,
+                            <li key="3">🦏 קרנף שחור + טרנגירה</li>,
+                            <li key="4">⏰ יותר זמן בכל מקום - פחות ממהרים</li>
+                          ]}
+                          {key === 'uganda_7days' && [
                             <li key="1">🦍 גורילות + שימפנזים - חווית פרימטים מלאה</li>,
                             <li key="2">🚤 שייט קזינגה - היפופוטמים ותנינים</li>,
                             <li key="3">🦁 אריות מטפסי עצים - תופעה נדירה</li>,
@@ -901,23 +969,32 @@ const SafariCompletePlanner = () => {
                       <div style={{ background: 'rgba(237,137,54,0.1)', padding: '15px', borderRadius: '10px' }}>
                         <h6 style={{ margin: '0 0 10px', color: '#ed8936', fontSize: '1em' }}>❌ מה חסר כאן:</h6>
                         <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
-                          {key === 'recommended' && [
+                          {key === 'proposal_4' && [
                             <li key="1">🏖️ זנזיבר (יש בחלופי)</li>,
-                            <li key="2">🦁 אריות מטפסי עצים (יש בחלופי)</li>
-                          ]}
-                          {key === 'alternative' && [
-                            <li key="1">🌊 חציית נהר המארה (יש במומלץ ותנזניה)</li>,
-                            <li key="2">🐘 טרנגירה (יש במומלץ ותנזניה)</li>
-                          ]}
-                          {key === 'tanzania_only' && [
-                            <li key="1">🦍 גורילות (יש במומלץ, חלופי, אוגנדה)</li>,
-                            <li key="2">🐒 שימפנזים (יש במומלץ, חלופי, אוגנדה)</li>,
+                            <li key="2">🦁 אריות מטפסי עצים (יש בחלופי ואוגנדה)</li>,
                             <li key="3">🚤 שייט קזינגה (יש באוגנדה)</li>
                           ]}
-                          {key === 'uganda_only' && [
-                            <li key="1">🌊 חציית נהר המארה (יש במומלץ ותנזניה)</li>,
-                            <li key="2">🦏 קרנף שחור (יש במומלץ, חלופי, תנזניה)</li>,
-                            <li key="3">🐘 טרנגירה - 5,000+ פילים (יש במומלץ ותנזניה)</li>,
+                          {key === 'alternative' && [
+                            <li key="1">🌊 חציית נהר המארה (יש בהצעה 4 ותנזניה)</li>,
+                            <li key="2">🐘 טרנגירה (יש בהצעה 4 ותנזניה)</li>,
+                            <li key="3">✈️ טיסה פנימית (יש בהצעה 4)</li>
+                          ]}
+                          {key === 'tanzania_7days' && [
+                            <li key="1">🦍 גורילות (יש בהצעה 4, חלופי, אוגנדה)</li>,
+                            <li key="2">🐒 שימפנזים (יש בהצעה 4, חלופי, אוגנדה)</li>,
+                            <li key="3">🚤 שייט קזינגה (יש באוגנדה)</li>,
+                            <li key="4">📅 יום נוסף (יש בתנזניה 8 ימים)</li>
+                          ]}
+                          {key === 'tanzania_8days' && [
+                            <li key="1">🦍 גורילות (יש בהצעה 4, חלופי, אוגנדה)</li>,
+                            <li key="2">🐒 שימפנזים (יש בהצעה 4, חלופי, אוגנדה)</li>,
+                            <li key="3">🚤 שייט קזינגה (יש באוגנדה)</li>,
+                            <li key="4">💰 מחיר נמוך יותר (תנזניה 7 ימים זול יותר)</li>
+                          ]}
+                          {key === 'uganda_7days' && [
+                            <li key="1">🌊 חציית נהר המארה (יש בהצעה 4 ותנזניה)</li>,
+                            <li key="2">🦏 קרנף שחור (יש בהצעה 4, חלופי, תנזניה)</li>,
+                            <li key="3">🐘 טרנגירה - 5,000+ פילים (יש בהצעה 4 ותנזניה)</li>,
                             <li key="4">🦁 Big 5 מלא (חסר קרנף)</li>
                           ]}
                         </ul>
