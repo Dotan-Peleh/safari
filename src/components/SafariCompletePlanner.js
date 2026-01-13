@@ -7,9 +7,6 @@ const kibaleChimp = '/images/kibale-chimp.jpg';
 const serengetiMigration = '/images/serengeti-migration.jpg';
 const ngorongoroCrater = '/images/ngorongoro-crater.jpg';
 const tarangireElephants = '/images/tarangire-elephants.jpg';
-const routeGorilla = '/images/route-gorilla.jpg';
-const routeBeach = '/images/route-beach.jpg';
-const routeSafari = '/images/route-safari.jpg';
 
 const SafariCompletePlanner = () => {
   const [selectedOption, setSelectedOption] = useState('recommended');

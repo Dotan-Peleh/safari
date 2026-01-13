@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SafariCompletePlanner from './components/SafariCompletePlanner';
 import './App.css';
 
