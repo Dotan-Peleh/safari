@@ -9,7 +9,7 @@ const ngorongoroCrater = '/images/ngorongoro-crater.jpg';
 const tarangireElephants = '/images/tarangire-elephants.jpg';
 
 const SafariCompletePlanner = () => {
-  const [selectedOption, setSelectedOption] = useState('proposal_4');
+  const [selectedOption, setSelectedOption] = useState('proposal_4_v1');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [activeTab, setActiveTab] = useState('map');
 
@@ -207,8 +207,8 @@ const SafariCompletePlanner = () => {
 
   // Route options
   const routes = {
-    proposal_4: {
-      name: "הצעה 4",
+    proposal_4_v1: {
+      name: "הצעה 4 - גרסה 1",
       subtitle: "משולב מלא - אוגנדה ותנזניה",
       days: 14,
       price: 37920,
@@ -264,9 +264,9 @@ const SafariCompletePlanner = () => {
         "🏥 Flying Doctor - ביטוח פינוי חירום"
       ]
     },
-    alternative: {
-      name: "מסלול חלופי",
-      subtitle: "דגש על אוגנדה + זנזיבר",
+    proposal_4_v2: {
+      name: "הצעה 4 - גרסה 2",
+      subtitle: "מסלול חלופי - דגש על אוגנדה + זנזיבר",
       days: 14,
       price: 32000,
       pricePerPerson: 10667,
@@ -300,9 +300,9 @@ const SafariCompletePlanner = () => {
         "🌴 חוויה ייחודית של זנזיבר"
       ]
     },
-    proposal_3_combined: {
+    proposal_3: {
       name: "הצעה 3",
-      subtitle: "תנזניה 7 + אוגנדה 7 = 14 ימים",
+      subtitle: "תנזניה 7 ימים + אוגנדה 7 ימים = 14 ימים",
       days: 14,
       price: 17454,
       pricePerPerson: 5818,
@@ -344,37 +344,45 @@ const SafariCompletePlanner = () => {
     },
     proposal_3_updated: {
       name: "הצעה 3 מעודכנת",
-      subtitle: "תנזניה 8 ימים - עם יום נוסף",
-      days: 8,
-      price: 9500,
-      pricePerPerson: 3167,
+      subtitle: "תנזניה 8 ימים + אוגנדה 7 ימים = 15 ימים",
+      days: 15,
+      price: 18650,
+      pricePerPerson: 6217,
       color: "#E91E63",
-      description: "מסלול תנזניה מורחב - 8 ימים עם יום נוסף בצפון סרנגטי",
+      description: "מסלול מורחב - תנזניה 8 ימים (עם יום נוסף) + אוגנדה 7 ימים",
       itinerary: [
         { day: 1, location: "arusha", nights: 1, highlight: false },
         { day: 2, location: "tarangire", nights: 1, highlight: "🐘" },
         { day: 3, location: "serengeti_north", nights: 3, highlight: "🌊" },
         { day: 6, location: "serengeti_central", nights: 1, highlight: false },
         { day: 7, location: "ngorongoro", nights: 1, highlight: "🦏" },
-        { day: 8, location: "arusha", nights: 0, highlight: false }
+        { day: 8, location: "entebbe", nights: 1, highlight: false, flight: true },
+        { day: 9, location: "kibale", nights: 1, highlight: "🐒" },
+        { day: 10, location: "queen_elizabeth", nights: 2, highlight: "🦁" },
+        { day: 12, location: "bwindi", nights: 2, highlight: "🦍" },
+        { day: 14, location: "entebbe", nights: 1, highlight: false },
+        { day: 15, location: "entebbe", nights: 0, highlight: false }
       ],
       pros: [
         "יום נוסף בצפון סרנגטי - יותר סיכוי לראות חצייה",
         "3 לילות בצפון סרנגטי - זמן מספק לנדידה",
         "חציית נהר המארה - הנדידה הגדולה",
+        "גורילות + שימפנזים - חווית פרימטים מלאה",
         "קרנף שחור בנגורונגורו",
         "טרנגירה - 5,000+ פילים",
-        "כל ה-Big 5"
+        "שייט קזינגה + אריות מטפסי עצים",
+        "כל ה-Big 5 + פרימטים"
       ],
       cons: [
-        "ללא גורילות ושימפנזים",
-        "מחיר גבוה יותר מהצעה 7 ימים",
-        "רק תנזניה - ללא אוגנדה"
+        "15 ימים - דורש זמן רב",
+        "מחיר גבוה יותר מהצעה 3 ($6,217 לאדם)",
+        "ללא טיסה פנימית - נסיעות ארוכות"
       ],
       uniqueFeatures: [
         "🌊 3 לילות בצפון סרנגטי - זמן מיטבי לנדידה",
-        "📅 יום נוסף - יותר זמן לראות חציות",
-        "🦁 Big 5 מלא בתנזניה"
+        "📅 יום נוסף בתנזניה - יותר זמן לראות חציות",
+        "🦍 גורילות + 🐒 שימפנזים + 🦁 Big 5 מלא",
+        "🚤 שייט קזינגה + אריות מטפסי עצים"
       ]
     }
   };
@@ -410,7 +418,7 @@ const SafariCompletePlanner = () => {
             }}
           >
             <div style={{ fontWeight: 'bold', fontSize: '1.1em' }}>
-              {key === 'proposal_4' && '⭐ '}{route.name}
+              {key === 'proposal_4_v1' && '⭐ '}{route.name}
             </div>
             <div style={{ fontSize: '0.85em', opacity: 0.8, marginTop: '5px' }}>{route.subtitle}</div>
             <div style={{ fontSize: '0.9em', marginTop: '8px', color: route.color }}>
@@ -896,64 +904,66 @@ const SafariCompletePlanner = () => {
                 {Object.entries(routes).map(([key, route]) => (
                   <div key={key} style={{ marginBottom: '25px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px', border: `2px solid ${route.color}40` }}>
                     <h5 style={{ color: route.color, marginBottom: '15px', fontSize: '1.2em', fontWeight: 'bold' }}>
-                      {key === 'proposal_4' && '⭐ '}{route.name} ({route.subtitle})
+                      {key === 'proposal_4_v1' && '⭐ '}{route.name} ({route.subtitle})
                     </h5>
                     
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
                       <div style={{ background: 'rgba(72,187,120,0.1)', padding: '15px', borderRadius: '10px' }}>
                         <h6 style={{ margin: '0 0 10px', color: '#48bb78', fontSize: '1em' }}>✅ מה יש רק כאן:</h6>
                         <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
-                          {key === 'proposal_4' && [
+                          {key === 'proposal_4_v1' && [
                             <li key="1">🌊 חציית נהר המארה + גורילות + שימפנזים - השילוב היחיד</li>,
                             <li key="2">✈️ טיסה פנימית - חוסך 10+ שעות נסיעה</li>,
                             <li key="3">🦏 קרנף שחור + טרנגירה (Big 5 מלא)</li>,
                             <li key="4">🗺️ שתי המדינות - חוויה מקיפה ביותר</li>,
                             <li key="5">🏥 Flying Doctor - ביטוח פינוי חירום</li>
                           ]}
-                          {key === 'alternative' && [
+                          {key === 'proposal_4_v2' && [
                             <li key="1">🏖️ 3 לילות בזנזיבר - התאוששות</li>,
                             <li key="2">🦁 אריות מטפסי עצים + שייט קזינגה</li>,
-                            <li key="3">🌴 חוויה ייחודית של זנזיבר</li>
+                            <li key="3">🌴 חוויה ייחודית של זנזיבר</li>,
+                            <li key="4">✈️ טיסה פנימית (אם יש)</li>
                           ]}
-                          {key === 'proposal_3_combined' && [
+                          {key === 'proposal_3' && [
                             <li key="1">🌊 חציית המארה + גורילות + שימפנזים - השילוב המלא</li>,
                             <li key="2">🚤 שייט קזינגה + אריות מטפסי עצים</li>,
                             <li key="3">🦏 קרנף שחור + טרנגירה - Big 5 מלא</li>,
                             <li key="4">💰 מחיר סביר ללא טיסה ($5,818 לאדם)</li>,
-                            <li key="5">🗺️ שתי המדינות - תנזניה + אוגנדה</li>
+                            <li key="5">🗺️ שתי המדינות - תנזניה 7 + אוגנדה 7</li>
                           ]}
                           {key === 'proposal_3_updated' && [
                             <li key="1">📅 יום נוסף בצפון סרנגטי - יותר סיכוי לראות חצייה</li>,
                             <li key="2">🌊 3 לילות בצפון סרנגטי - זמן מיטבי לנדידה</li>,
-                            <li key="3">🦏 קרנף שחור + טרנגירה - Big 5 מלא</li>,
-                            <li key="4">⏰ יותר זמן בכל מקום - פחות ממהרים</li>,
-                            <li key="5">💰 מחיר סביר ($3,167 לאדם)</li>
+                            <li key="3">🦍 גורילות + 🐒 שימפנזים + 🦁 Big 5 מלא</li>,
+                            <li key="4">🚤 שייט קזינגה + אריות מטפסי עצים</li>,
+                            <li key="5">🗺️ תנזניה 8 + אוגנדה 7 = 15 ימים</li>
                           ]}
                         </ul>
                       </div>
                       <div style={{ background: 'rgba(237,137,54,0.1)', padding: '15px', borderRadius: '10px' }}>
                         <h6 style={{ margin: '0 0 10px', color: '#ed8936', fontSize: '1em' }}>❌ מה חסר כאן:</h6>
                         <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
-                          {key === 'proposal_4' && [
-                            <li key="1">🏖️ זנזיבר (יש בחלופי)</li>,
-                            <li key="2">🦁 אריות מטפסי עצים (יש בחלופי ואוגנדה)</li>,
-                            <li key="3">🚤 שייט קזינגה (יש באוגנדה)</li>
+                          {key === 'proposal_4_v1' && [
+                            <li key="1">🏖️ זנזיבר (יש בגרסה 2)</li>,
+                            <li key="2">🦁 אריות מטפסי עצים (יש בגרסה 2 והצעה 3)</li>,
+                            <li key="3">🚤 שייט קזינגה (יש בהצעה 3)</li>
                           ]}
-                          {key === 'alternative' && [
-                            <li key="1">🌊 חציית נהר המארה (יש בהצעה 4 ותנזניה)</li>,
-                            <li key="2">🐘 טרנגירה (יש בהצעה 4 ותנזניה)</li>,
-                            <li key="3">✈️ טיסה פנימית (יש בהצעה 4)</li>
+                          {key === 'proposal_4_v2' && [
+                            <li key="1">🌊 חציית נהר המארה (יש בגרסה 1 והצעה 3)</li>,
+                            <li key="2">🐘 טרנגירה (יש בגרסה 1 והצעה 3)</li>,
+                            <li key="3">✈️ טיסה פנימית (יש בגרסה 1)</li>
                           ]}
-                          {key === 'proposal_3_combined' && [
-                            <li key="1">✈️ טיסה פנימית (יש בהצעה 4)</li>,
-                            <li key="2">🏖️ זנזיבר (יש בחלופי)</li>,
-                            <li key="3">🏥 Flying Doctor (יש בהצעה 4)</li>
+                          {key === 'proposal_3' && [
+                            <li key="1">✈️ טיסה פנימית (יש בהצעה 4 גרסה 1)</li>,
+                            <li key="2">🏖️ זנזיבר (יש בהצעה 4 גרסה 2)</li>,
+                            <li key="3">🏥 Flying Doctor (יש בהצעה 4 גרסה 1)</li>,
+                            <li key="4">📅 יום נוסף בסרנגטי (יש בהצעה 3 מעודכנת)</li>
                           ]}
                           {key === 'proposal_3_updated' && [
-                            <li key="1">🦍 גורילות (יש בהצעה 4, חלופי, הצעה 3)</li>,
-                            <li key="2">🐒 שימפנזים (יש בהצעה 4, חלופי, הצעה 3)</li>,
-                            <li key="3">🚤 שייט קזינגה (יש בהצעה 3)</li>,
-                            <li key="4">🗺️ אוגנדה (רק תנזניה)</li>
+                            <li key="1">✈️ טיסה פנימית (יש בהצעה 4 גרסה 1)</li>,
+                            <li key="2">🏖️ זנזיבר (יש בהצעה 4 גרסה 2)</li>,
+                            <li key="3">🏥 Flying Doctor (יש בהצעה 4 גרסה 1)</li>,
+                            <li key="4">⏰ יום נוסף - 15 ימים (הארוך ביותר)</li>
                           ]}
                         </ul>
                       </div>
