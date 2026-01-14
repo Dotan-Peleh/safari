@@ -12,6 +12,16 @@ const SafariCompletePlanner = () => {
   const [selectedOption, setSelectedOption] = useState('proposal_4_v1');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [activeTab, setActiveTab] = useState('map');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Handle window resize
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Location data with local images
   const locations = {
@@ -393,28 +403,30 @@ const SafariCompletePlanner = () => {
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 100%)', minHeight: '100vh', direction: 'rtl', color: 'white' }}>
       {/* Header */}
-      <div style={{ background: 'linear-gradient(135deg, #e65100, #ff8f00)', padding: '25px', textAlign: 'center' }}>
-        <h1 style={{ margin: 0, fontSize: '2.2em', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>
+      <div style={{ background: 'linear-gradient(135deg, #e65100, #ff8f00)', padding: isMobile ? '15px' : '25px', textAlign: 'center' }}>
+        <h1 style={{ margin: 0, fontSize: isMobile ? '1.5em' : '2.2em', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>
           🗺️ מדריך ספארי אולטימטיבי
         </h1>
-        <p style={{ margin: '10px 0 0', opacity: 0.95 }}>אוגנדה ותנזניה | אוגוסט 2026 | עם תמונות, טיפים ומסלולים חלופיים</p>
+        <p style={{ margin: '10px 0 0', opacity: 0.95, fontSize: isMobile ? '0.85em' : '1em' }}>אוגנדה ותנזניה | אוגוסט 2026 | עם תמונות, טיפים ומסלולים חלופיים</p>
       </div>
 
       {/* Route Selector */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', padding: '25px', flexWrap: 'wrap', background: 'rgba(0,0,0,0.2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? '10px' : '15px', padding: isMobile ? '15px' : '25px', flexWrap: 'wrap', background: 'rgba(0,0,0,0.2)' }}>
         {Object.entries(routes).map(([key, route]) => (
           <button
             key={key}
             onClick={() => { setSelectedOption(key); setSelectedLocation(null); }}
             style={{
-              padding: '15px 25px',
+              padding: isMobile ? '12px 15px' : '15px 25px',
               border: selectedOption === key ? `3px solid ${route.color}` : '2px solid rgba(255,255,255,0.2)',
               borderRadius: '15px',
               background: selectedOption === key ? `${route.color}22` : 'rgba(255,255,255,0.05)',
               color: 'white',
               cursor: 'pointer',
-              minWidth: '200px',
-              transition: 'all 0.3s'
+              minWidth: isMobile ? '100%' : '200px',
+              width: isMobile ? '100%' : 'auto',
+              transition: 'all 0.3s',
+              fontSize: isMobile ? '0.9em' : '1em'
             }}
           >
             <div style={{ fontWeight: 'bold', fontSize: '1.1em' }}>
@@ -439,11 +451,11 @@ const SafariCompletePlanner = () => {
       </div>
 
       {/* Main Content */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '25px', padding: '25px', maxWidth: '1500px', margin: '0 auto' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '15px' : '25px', padding: isMobile ? '15px' : '25px', maxWidth: '1500px', margin: '0 auto' }}>
         
         {/* Map Section */}
-        <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '20px', padding: '25px', backdropFilter: 'blur(10px)' }}>
-          <h2 style={{ color: '#ff8f00', marginTop: 0 }}>🗺️ מפת המסלול - {currentRoute.name}</h2>
+        <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '20px', padding: isMobile ? '15px' : '25px', backdropFilter: 'blur(10px)' }}>
+          <h2 style={{ color: '#ff8f00', marginTop: 0, fontSize: isMobile ? '1.2em' : '1.5em' }}>🗺️ מפת המסלול - {currentRoute.name}</h2>
           
           <svg viewBox="0 0 500 520" style={{ width: '100%', height: 'auto', background: 'linear-gradient(180deg, #1a365d 0%, #234e52 100%)', borderRadius: '15px' }}>
             {/* Background patterns */}
@@ -585,7 +597,7 @@ const SafariCompletePlanner = () => {
           </svg>
 
           {/* Quick stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: (selectedOption === 'proposal_3' || selectedOption === 'proposal_3_updated') ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)', gap: '10px', marginTop: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : ((selectedOption === 'proposal_3' || selectedOption === 'proposal_3_updated') ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)'), gap: isMobile ? '8px' : '10px', marginTop: '20px' }}>
             {[
               { icon: '📅', label: 'ימים', value: currentRoute.days },
               { icon: '💰', label: 'סה"כ', value: `$${currentRoute.price.toLocaleString()}` },
@@ -593,8 +605,8 @@ const SafariCompletePlanner = () => {
               { icon: '🏨', label: 'לילות', value: currentRoute.days - 1 },
               ...((selectedOption === 'proposal_3' || selectedOption === 'proposal_3_updated') ? [{ icon: '🗺️', label: 'מדינות', value: '2 (תנזניה + אוגנדה)' }] : [])
             ].map((stat, idx) => (
-              <div key={idx} style={{ background: 'rgba(255,255,255,0.1)', padding: '12px', borderRadius: '10px', textAlign: 'center' }}>
-                <div style={{ fontSize: '1.5em' }}>{stat.icon}</div>
+              <div key={idx} style={{ background: 'rgba(255,255,255,0.1)', padding: isMobile ? '10px' : '12px', borderRadius: '10px', textAlign: 'center' }}>
+                <div style={{ fontSize: isMobile ? '1.2em' : '1.5em' }}>{stat.icon}</div>
                 <div style={{ fontSize: '0.8em', opacity: 0.7 }}>{stat.label}</div>
                 <div style={{ fontWeight: 'bold', color: currentRoute.color }}>{stat.value}</div>
               </div>
@@ -603,9 +615,9 @@ const SafariCompletePlanner = () => {
         </div>
 
         {/* Details Section */}
-        <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '20px', padding: '25px', backdropFilter: 'blur(10px)' }}>
+        <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '20px', padding: isMobile ? '15px' : '25px', backdropFilter: 'blur(10px)' }}>
           {/* Tabs */}
-          <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', gap: isMobile ? '5px' : '10px', marginBottom: '20px', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
             {[
               { id: 'map', icon: '📍', label: 'יעדים' },
               { id: 'tips', icon: '💡', label: 'טיפים' },
@@ -616,13 +628,15 @@ const SafariCompletePlanner = () => {
                 onClick={() => setActiveTab(tab.id)}
                 style={{
                   flex: 1,
-                  padding: '12px',
+                  padding: isMobile ? '10px 8px' : '12px',
                   border: 'none',
                   borderRadius: '10px',
                   background: activeTab === tab.id ? currentRoute.color : 'rgba(255,255,255,0.1)',
                   color: 'white',
                   cursor: 'pointer',
-                  fontWeight: activeTab === tab.id ? 'bold' : 'normal'
+                  fontWeight: activeTab === tab.id ? 'bold' : 'normal',
+                  fontSize: isMobile ? '0.85em' : '1em',
+                  minWidth: isMobile ? 'calc(33.33% - 4px)' : 'auto'
                 }}
               >
                 {tab.icon} {tab.label}
@@ -632,11 +646,11 @@ const SafariCompletePlanner = () => {
 
           {/* Destinations Tab */}
           {activeTab === 'map' && (
-            <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+            <div style={{ maxHeight: isMobile ? '400px' : '500px', overflowY: 'auto' }}>
               {selectedLocation && currentLocation ? (
                 <div>
                   {/* Location Card */}
-                  <div style={{ position: 'relative', borderRadius: '15px', overflow: 'hidden', marginBottom: '20px' }}>
+                  <div style={{ position: 'relative', borderRadius: '15px', overflow: 'hidden', marginBottom: isMobile ? '15px' : '20px' }}>
                     <img 
                       src={currentLocation.image} 
                       alt={currentLocation.name}
@@ -650,8 +664,8 @@ const SafariCompletePlanner = () => {
                       background: 'linear-gradient(transparent, rgba(0,0,0,0.9))',
                       padding: '20px'
                     }}>
-                      <h3 style={{ margin: 0, fontSize: '1.5em' }}>{currentLocation.name}</h3>
-                      <p style={{ margin: '5px 0 0', opacity: 0.8, fontSize: '0.9em' }}>{currentLocation.nameEn}</p>
+                      <h3 style={{ margin: 0, fontSize: isMobile ? '1.2em' : '1.5em' }}>{currentLocation.name}</h3>
+                      <p style={{ margin: '5px 0 0', opacity: 0.8, fontSize: isMobile ? '0.8em' : '0.9em' }}>{currentLocation.nameEn}</p>
                     </div>
                   </div>
 
@@ -672,7 +686,7 @@ const SafariCompletePlanner = () => {
                   </div>
 
                   {/* Info badges */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', margin: '15px 0' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '10px', margin: '15px 0' }}>
                     <div style={{ background: 'rgba(72,187,120,0.2)', padding: '10px', borderRadius: '10px', textAlign: 'center' }}>
                       <div style={{ fontSize: '0.8em', opacity: 0.7 }}>⏰ עונה מומלצת</div>
                       <div style={{ fontWeight: 'bold' }}>{currentLocation.bestTime}</div>
@@ -788,8 +802,8 @@ const SafariCompletePlanner = () => {
 
           {/* Tips Tab */}
           {activeTab === 'tips' && (
-            <div style={{ maxHeight: '600px', overflowY: 'auto', padding: '10px' }}>
-              <h3 style={{ color: '#ff8f00', marginBottom: '20px', fontSize: '1.3em' }}>💡 טיפים חשובים לספארי</h3>
+            <div style={{ maxHeight: isMobile ? '400px' : '600px', overflowY: 'auto', padding: isMobile ? '5px' : '10px' }}>
+              <h3 style={{ color: '#ff8f00', marginBottom: '20px', fontSize: isMobile ? '1.1em' : '1.3em' }}>💡 טיפים חשובים לספארי</h3>
               {[
                 {
                   title: '🦍 טרקינג גורילות',
@@ -863,17 +877,17 @@ const SafariCompletePlanner = () => {
 
           {/* Compare Tab */}
           {activeTab === 'compare' && (
-            <div style={{ maxHeight: '600px', overflowY: 'auto', padding: '10px' }}>
-              <h3 style={{ color: '#ff8f00', marginBottom: '20px', fontSize: '1.3em' }}>⚖️ השוואת מסלולים</h3>
-              <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '15px', padding: '15px', marginBottom: '20px', overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9em', minWidth: '500px' }}>
+            <div style={{ maxHeight: isMobile ? '400px' : '600px', overflowY: 'auto', padding: isMobile ? '5px' : '10px' }}>
+              <h3 style={{ color: '#ff8f00', marginBottom: '20px', fontSize: isMobile ? '1.1em' : '1.3em' }}>⚖️ השוואת מסלולים</h3>
+              <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '15px', padding: isMobile ? '10px' : '15px', marginBottom: '20px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: isMobile ? '0.75em' : '0.9em', minWidth: isMobile ? '600px' : '500px' }}>
                   <thead>
                     <tr style={{ background: 'rgba(255,255,255,0.1)' }}>
-                      <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}>קריטריון</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold' }}>הצעה 4 - גרסה 1</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold' }}>הצעה 4 - גרסה 2</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold' }}>הצעה 3</th>
-                      <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#E91E63', fontWeight: 'bold' }}>הצעה 3 מעודכנת</th>
+                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'right', borderBottom: '2px solid rgba(255,255,255,0.2)', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>קריטריון</th>
+                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 4 - גרסה 1</th>
+                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 4 - גרסה 2</th>
+                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 3</th>
+                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#E91E63', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 3 מעודכנת</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -895,11 +909,11 @@ const SafariCompletePlanner = () => {
                       { label: '📅 יום נוסף סרנגטי', v1: '❌', v2: '❌', p3: '❌', p3u: '✅' }
                     ].map((row, idx) => (
                       <tr key={idx} style={{ background: idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
-                        <td style={{ padding: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontWeight: '500' }}>{row.label}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.v1}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.v2}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.p3}</td>
-                        <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.p3u}</td>
+                        <td style={{ padding: isMobile ? '8px 6px' : '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontWeight: '500', fontSize: isMobile ? '0.85em' : '1em' }}>{row.label}</td>
+                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.v1}</td>
+                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.v2}</td>
+                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.p3}</td>
+                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.p3u}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -907,16 +921,16 @@ const SafariCompletePlanner = () => {
               </div>
 
               {/* Detailed Comparison Section */}
-              <div style={{ marginTop: '25px', background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '15px' }}>
-                <h4 style={{ color: '#ffd700', marginBottom: '20px', fontSize: '1.4em' }}>🔍 השוואה מפורטת - מה יש בכל הצעה?</h4>
+              <div style={{ marginTop: '25px', background: 'rgba(255,255,255,0.05)', padding: isMobile ? '15px' : '20px', borderRadius: '15px' }}>
+                <h4 style={{ color: '#ffd700', marginBottom: '20px', fontSize: isMobile ? '1.1em' : '1.4em' }}>🔍 השוואה מפורטת - מה יש בכל הצעה?</h4>
                 
                 {Object.entries(routes).map(([key, route]) => (
-                  <div key={key} style={{ marginBottom: '25px', background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '12px', border: `2px solid ${route.color}40` }}>
-                    <h5 style={{ color: route.color, marginBottom: '15px', fontSize: '1.2em', fontWeight: 'bold' }}>
+                  <div key={key} style={{ marginBottom: '25px', background: 'rgba(255,255,255,0.03)', padding: isMobile ? '15px' : '20px', borderRadius: '12px', border: `2px solid ${route.color}40` }}>
+                    <h5 style={{ color: route.color, marginBottom: '15px', fontSize: isMobile ? '1em' : '1.2em', fontWeight: 'bold' }}>
                       {key === 'proposal_4_v1' && '⭐ '}{route.name} ({route.subtitle})
                     </h5>
                     
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
                       <div style={{ background: 'rgba(72,187,120,0.1)', padding: '15px', borderRadius: '10px' }}>
                         <h6 style={{ margin: '0 0 10px', color: '#48bb78', fontSize: '1em' }}>✅ מה יש רק כאן:</h6>
                         <ul style={{ margin: 0, padding: '0 15px', fontSize: '0.9em', lineHeight: 1.6, listStyle: 'none' }}>
