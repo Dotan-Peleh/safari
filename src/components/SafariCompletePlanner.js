@@ -877,48 +877,108 @@ const SafariCompletePlanner = () => {
 
           {/* Compare Tab */}
           {activeTab === 'compare' && (
-            <div style={{ maxHeight: isMobile ? '400px' : '600px', overflowY: 'auto', padding: isMobile ? '5px' : '10px' }}>
+            <div style={{ maxHeight: isMobile ? 'none' : '600px', overflowY: isMobile ? 'visible' : 'auto', padding: isMobile ? '5px' : '10px' }}>
               <h3 style={{ color: '#ff8f00', marginBottom: '20px', fontSize: isMobile ? '1.1em' : '1.3em' }}>⚖️ השוואת מסלולים</h3>
-              <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '15px', padding: isMobile ? '10px' : '15px', marginBottom: '20px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: isMobile ? '0.75em' : '0.9em', minWidth: isMobile ? '600px' : '500px' }}>
-                  <thead>
-                    <tr style={{ background: 'rgba(255,255,255,0.1)' }}>
-                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'right', borderBottom: '2px solid rgba(255,255,255,0.2)', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>קריטריון</th>
-                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 4 - גרסה 1</th>
-                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 4 - גרסה 2</th>
-                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 3</th>
-                      <th style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#E91E63', fontWeight: 'bold', fontSize: isMobile ? '0.8em' : '1em' }}>הצעה 3 מעודכנת</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { label: '📅 ימים', v1: '14', v2: '14', p3: '14', p3u: '15' },
-                      { label: '💰 מחיר לאדם', v1: '$12,640', v2: '$10,667', p3: '$5,818', p3u: '$6,217' },
-                      { label: '✈️ עם טיסה', v1: '$13,600', v2: '-', p3: '-', p3u: '-' },
-                      { label: '🗺️ מדינות', v1: '2 (תנזניה + אוגנדה)', v2: '2 (תנזניה + אוגנדה)', p3: '2 (תנזניה + אוגנדה)', p3u: '2 (תנזניה + אוגנדה)' },
-                      { label: '🦍 גורילות', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
-                      { label: '🐒 שימפנזים', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
-                      { label: '🌊 חציית המארה', v1: '✅', v2: '❌', p3: '✅', p3u: '✅' },
-                      { label: '🦏 קרנף שחור', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
-                      { label: '🏖️ זנזיבר', v1: '❌', v2: '✅', p3: '❌', p3u: '❌' },
-                      { label: '🦁 אריות מטפסים', v1: '❌', v2: '✅', p3: '✅', p3u: '✅' },
-                      { label: '🐘 טרנגירה', v1: '✅', v2: '❌', p3: '✅', p3u: '✅' },
-                      { label: '🚤 שייט קזינגה', v1: '❌', v2: '✅', p3: '✅', p3u: '✅' },
-                      { label: '🦁 Big 5 מלא', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
-                      { label: '✈️ טיסה פנימית', v1: '✅', v2: '❌', p3: '❌', p3u: '❌' },
-                      { label: '📅 יום נוסף סרנגטי', v1: '❌', v2: '❌', p3: '❌', p3u: '✅' }
-                    ].map((row, idx) => (
-                      <tr key={idx} style={{ background: idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
-                        <td style={{ padding: isMobile ? '8px 6px' : '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontWeight: '500', fontSize: isMobile ? '0.85em' : '1em' }}>{row.label}</td>
-                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.v1}</td>
-                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.v2}</td>
-                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.p3}</td>
-                        <td style={{ padding: isMobile ? '8px 6px' : '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: isMobile ? '0.9em' : '1.1em' }}>{row.p3u}</td>
+              
+              {isMobile ? (
+                // Mobile: Cards layout
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                  {Object.entries(routes).map(([key, route]) => {
+                    const comparisonData = [
+                      { label: '📅 ימים', value: route.days },
+                      { label: '💰 מחיר לאדם', value: `$${route.pricePerPerson.toLocaleString()}` },
+                      { label: '✈️ עם טיסה', value: key === 'proposal_4_v1' ? '$13,600' : '-' },
+                      { label: '🗺️ מדינות', value: '2 (תנזניה + אוגנדה)' },
+                      { label: '🦍 גורילות', value: '✅' },
+                      { label: '🐒 שימפנזים', value: '✅' },
+                      { label: '🌊 חציית המארה', value: (key === 'proposal_4_v1' || key === 'proposal_3' || key === 'proposal_3_updated') ? '✅' : '❌' },
+                      { label: '🦏 קרנף שחור', value: '✅' },
+                      { label: '🏖️ זנזיבר', value: key === 'proposal_4_v2' ? '✅' : '❌' },
+                      { label: '🦁 אריות מטפסים', value: (key === 'proposal_4_v2' || key === 'proposal_3' || key === 'proposal_3_updated') ? '✅' : '❌' },
+                      { label: '🐘 טרנגירה', value: (key === 'proposal_4_v1' || key === 'proposal_3' || key === 'proposal_3_updated') ? '✅' : '❌' },
+                      { label: '🚤 שייט קזינגה', value: (key === 'proposal_4_v2' || key === 'proposal_3' || key === 'proposal_3_updated') ? '✅' : '❌' },
+                      { label: '🦁 Big 5 מלא', value: '✅' },
+                      { label: '✈️ טיסה פנימית', value: key === 'proposal_4_v1' ? '✅' : '❌' },
+                      { label: '📅 יום נוסף סרנגטי', value: key === 'proposal_3_updated' ? '✅' : '❌' }
+                    ];
+                    
+                    return (
+                      <div key={key} style={{ 
+                        background: `linear-gradient(135deg, ${route.color}20, ${route.color}10)`, 
+                        borderRadius: '15px', 
+                        padding: '15px', 
+                        border: `2px solid ${route.color}40` 
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', gap: '10px' }}>
+                          <div style={{ fontSize: '1.5em' }}>{key === 'proposal_4_v1' && '⭐'}</div>
+                          <div>
+                            <h4 style={{ margin: 0, color: route.color, fontSize: '1.1em', fontWeight: 'bold' }}>{route.name}</h4>
+                            <p style={{ margin: '3px 0 0', fontSize: '0.85em', opacity: 0.8 }}>{route.subtitle}</p>
+                          </div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', fontSize: '0.9em' }}>
+                          {comparisonData.map((item, idx) => (
+                            <div key={idx} style={{ 
+                              display: 'flex', 
+                              justifyContent: 'space-between', 
+                              padding: '8px', 
+                              background: 'rgba(255,255,255,0.05)', 
+                              borderRadius: '8px' 
+                            }}>
+                              <span>{item.label}</span>
+                              <span style={{ fontWeight: 'bold', color: item.value === '✅' ? '#48bb78' : item.value === '❌' ? '#f56565' : route.color }}>
+                                {item.value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                // Desktop: Table layout
+                <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '15px', padding: '15px', marginBottom: '20px', overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9em', minWidth: '500px' }}>
+                    <thead>
+                      <tr style={{ background: 'rgba(255,255,255,0.1)' }}>
+                        <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}>קריטריון</th>
+                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#4CAF50', fontWeight: 'bold' }}>הצעה 4 - גרסה 1</th>
+                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#9C27B0', fontWeight: 'bold' }}>הצעה 4 - גרסה 2</th>
+                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#FF9800', fontWeight: 'bold' }}>הצעה 3</th>
+                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)', color: '#E91E63', fontWeight: 'bold' }}>הצעה 3 מעודכנת</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {[
+                        { label: '📅 ימים', v1: '14', v2: '14', p3: '14', p3u: '15' },
+                        { label: '💰 מחיר לאדם', v1: '$12,640', v2: '$10,667', p3: '$5,818', p3u: '$6,217' },
+                        { label: '✈️ עם טיסה', v1: '$13,600', v2: '-', p3: '-', p3u: '-' },
+                        { label: '🗺️ מדינות', v1: '2 (תנזניה + אוגנדה)', v2: '2 (תנזניה + אוגנדה)', p3: '2 (תנזניה + אוגנדה)', p3u: '2 (תנזניה + אוגנדה)' },
+                        { label: '🦍 גורילות', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                        { label: '🐒 שימפנזים', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                        { label: '🌊 חציית המארה', v1: '✅', v2: '❌', p3: '✅', p3u: '✅' },
+                        { label: '🦏 קרנף שחור', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                        { label: '🏖️ זנזיבר', v1: '❌', v2: '✅', p3: '❌', p3u: '❌' },
+                        { label: '🦁 אריות מטפסים', v1: '❌', v2: '✅', p3: '✅', p3u: '✅' },
+                        { label: '🐘 טרנגירה', v1: '✅', v2: '❌', p3: '✅', p3u: '✅' },
+                        { label: '🚤 שייט קזינגה', v1: '❌', v2: '✅', p3: '✅', p3u: '✅' },
+                        { label: '🦁 Big 5 מלא', v1: '✅', v2: '✅', p3: '✅', p3u: '✅' },
+                        { label: '✈️ טיסה פנימית', v1: '✅', v2: '❌', p3: '❌', p3u: '❌' },
+                        { label: '📅 יום נוסף סרנגטי', v1: '❌', v2: '❌', p3: '❌', p3u: '✅' }
+                      ].map((row, idx) => (
+                        <tr key={idx} style={{ background: idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
+                          <td style={{ padding: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontWeight: '500' }}>{row.label}</td>
+                          <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.v1}</td>
+                          <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.v2}</td>
+                          <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.p3}</td>
+                          <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '1.1em' }}>{row.p3u}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
 
               {/* Detailed Comparison Section */}
               <div style={{ marginTop: '25px', background: 'rgba(255,255,255,0.05)', padding: isMobile ? '15px' : '20px', borderRadius: '15px' }}>
